@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hamzi.hnia.dz.Controllers.PasswordController">
+   <children>
+      <BorderPane layoutY="5.0" prefHeight="390.0" prefWidth="607.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <Pane prefHeight="390.0" prefWidth="233.0" style="-fx-border-radius: 25px;" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="376.0" fitWidth="233.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true">
+                     <image>
+                        <Image url="@../Images/hnia.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </left>
+         <center>
+            <VBox alignment="CENTER" prefHeight="273.0" prefWidth="374.0" spacing="15.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField alignment="CENTER" prefHeight="37.0" prefWidth="334.0" promptText="Enter your user name">
+                     <font>
+                        <Font name="Arial" size="17.0" />
+                     </font>
+                  </TextField>
+                  <PasswordField alignment="CENTER" prefHeight="31.0" prefWidth="334.0" promptText="Enter you password">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </PasswordField>
+                  <Button alignment="CENTER" ellipsisString="Login" mnemonicParsing="false" prefHeight="36.0" prefWidth="192.0" text="Login" textOverrun="LEADING_ELLIPSIS">
+                     <font>
+                        <Font name="Algerian" size="20.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <effect>
+                        <InnerShadow />
+                     </effect>
+                  </Button>
+               </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+            </VBox>
+         </center>
+      </BorderPane>
+      <Pane layoutX="-251.0" layoutY="-15.0" prefHeight="200.0" prefWidth="200.0" />
+   </children>
+</AnchorPane>
