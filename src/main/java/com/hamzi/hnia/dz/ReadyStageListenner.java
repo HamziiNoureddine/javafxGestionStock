@@ -1,10 +1,13 @@
 package com.hamzi.hnia.dz;
 
+import com.hamzi.hnia.dz.Utils.SwitchScenne;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.io.ClassPathResource;
@@ -14,6 +17,7 @@ import java.io.IOException;
 
 @Component
 class ReadyStageListenner implements ApplicationListener<ReadyStage> {
+
     private final ApplicationContext applicationContext;
 
     ReadyStageListenner(ApplicationContext applicationContext) {
@@ -28,6 +32,9 @@ class ReadyStageListenner implements ApplicationListener<ReadyStage> {
         try {
 
             Stage stage = event.getStage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            SwitchScenne.primaryStage = stage;
+
             ClassPathResource resource = new ClassPathResource("Views/password.fxml");
             FXMLLoader loader=new FXMLLoader(resource.getURL());
             loader.setControllerFactory(applicationContext::getBean);
