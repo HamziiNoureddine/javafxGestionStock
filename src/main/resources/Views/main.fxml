@@ -1,55 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hamzi.hnia.dz.Controllers.MainController">
    <children>
-      <BorderPane layoutX="207.0" layoutY="58.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <BorderPane layoutX="207.0" layoutY="58.0" prefHeight="400.0" prefWidth="629.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <AnchorPane prefHeight="100.0" prefWidth="800.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                <children>
-                  <Pane layoutX="1.0" layoutY="14.0" prefHeight="49.0" prefWidth="800.0" style="-fx-background-color: #044060;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="600.0" style="-fx-background-color: #044060;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="800.0">
-                           <children>
-                              <ImageView fitHeight="26.0" fitWidth="31.0" pickOnBounds="true">
+                        <ImageView fx:id="closeIcon" fitHeight="20.0" fitWidth="23.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../Images/close.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </HBox>
+                  <HBox layoutX="311.0" layoutY="36.0" prefHeight="52.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="209.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="48.0">
+                     <children>
+                        <JFXButton prefHeight="52.0" prefWidth="107.0" styleClass="menuItem" stylesheets="@../styles.css" text="Dashbord">
+                           <graphic>
+                              <ImageView fitHeight="25.0" fitWidth="22.0" pickOnBounds="true">
                                  <image>
-                                    <Image url="@../Images/close.png" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </HBox>
-                     </children></Pane>
-                  <HBox layoutX="311.0" layoutY="36.0" prefHeight="52.0" prefWidth="591.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="209.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="48.0">
-                     <children>
-                        <JFXButton prefHeight="52.0" prefWidth="155.0" text="Dashbord">
-                           <graphic>
-                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" />
+                                    <Image url="@../Images/home.png" />
+                                 </image></ImageView>
                            </graphic></JFXButton>
-                        <JFXButton prefHeight="52.0" prefWidth="155.0" text="Add">
+                        <JFXButton prefHeight="52.0" prefWidth="93.0" styleClass="menuItem" stylesheets="@../styles.css" text="Add">
                            <graphic>
-                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="22.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/add.png" />
+                                 </image></ImageView>
                            </graphic></JFXButton>
-                        <JFXButton prefHeight="52.0" prefWidth="155.0" text="Report">
+                        <JFXButton prefHeight="52.0" prefWidth="99.0" styleClass="menuItem" stylesheets="@../styles.css" text="Report">
                            <graphic>
-                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/raport.png" />
+                                 </image></ImageView>
                            </graphic></JFXButton>
-                        <JFXButton prefHeight="52.0" prefWidth="155.0" text="BackUp">
+                        <JFXButton prefHeight="52.0" prefWidth="103.0" styleClass="menuItem" stylesheets="@../styles.css" text="BackUp">
                            <graphic>
-                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/backup.png" />
+                                 </image></ImageView>
                            </graphic></JFXButton>
                      </children>
                   </HBox>
-                  <Label layoutX="18.0" layoutY="58.0" prefHeight="29.0" prefWidth="156.0" text="Menu">
+                  <Label fx:id="Menu" layoutX="18.0" layoutY="58.0" prefHeight="36.0" prefWidth="95.0" text="Menu">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -60,53 +73,60 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </Label>
                </children>
             </AnchorPane>
          </top>
          <left>
-            <AnchorPane prefHeight="500.0" prefWidth="210.0" style="-fx-background-color: #044669;" BorderPane.alignment="CENTER">
+            <AnchorPane fx:id="slider" prefHeight="500.0" prefWidth="210.0" style="-fx-background-color: #044669;" BorderPane.alignment="CENTER">
                <children>
                   <VBox layoutX="29.0" layoutY="31.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="53.0">
                      <children>
-                        <JFXButton alignment="BASELINE_LEFT" prefHeight="40.0" prefWidth="210.0" text="Dashbord" textFill="WHITE">
+                        <JFXButton alignment="BASELINE_LEFT" prefHeight="49.0" prefWidth="210.0" styleClass="sidebarItem" stylesheets="@../styles.css" text="Dashbord" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                            <graphic>
-                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="24.0" fitWidth="27.0" pickOnBounds="true">
+                                 <image>
+                                    <Image url="@../Images/home.png" />
+                                 </image></ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXButton alignment="BASELINE_LEFT" prefHeight="40.0" prefWidth="210.0" text="Add" textFill="WHITE">
+                        <JFXButton alignment="BASELINE_LEFT" prefHeight="46.0" prefWidth="210.0" styleClass="sidebarItem" stylesheets="@../styles.css" text="Add" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                            <graphic>
-                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="28.0" fitWidth="25.0" pickOnBounds="true">
+                                 <image>
+                                    <Image url="@../Images/add.png" />
+                                 </image></ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXButton alignment="BASELINE_LEFT" prefHeight="40.0" prefWidth="210.0" text="Report" textFill="WHITE">
+                        <JFXButton alignment="BASELINE_LEFT" prefHeight="47.0" prefWidth="210.0" styleClass="sidebarItem" stylesheets="@../styles.css" text="Report" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                            <graphic>
-                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/raport.png" />
+                                 </image></ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXButton alignment="BASELINE_LEFT" prefHeight="40.0" prefWidth="210.0" text="BackUp" textFill="WHITE">
+                        <JFXButton alignment="BASELINE_LEFT" prefHeight="47.0" prefWidth="210.0" styleClass="sidebarItem" stylesheets="@../styles.css" text="BackUp" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
                            <graphic>
-                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" />
-                           </graphic>
-                        </JFXButton>
-                        <JFXButton alignment="BASELINE_LEFT" prefHeight="40.0" prefWidth="210.0" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                           <graphic>
-                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fitHeight="22.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../Images/backup.png" />
+                                 </image></ImageView>
                            </graphic>
                         </JFXButton>
                      </children>
