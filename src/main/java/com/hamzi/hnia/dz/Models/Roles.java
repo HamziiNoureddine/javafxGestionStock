@@ -1,12 +1,10 @@
 package com.hamzi.hnia.dz.Models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Type;
 
 
 @Entity
@@ -14,7 +12,9 @@ public class Roles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codeRole;
-    private String designationRole;
+
+    @Enumerated(EnumType.STRING)
+    private RolesType designationRole;
 
     public Integer getCodeRole() {
         return codeRole;
@@ -24,11 +24,12 @@ public class Roles {
         this.codeRole = codeRole;
     }
 
-    public String getDesignationRole() {
+
+    public RolesType getDesignationRole() {
         return designationRole;
     }
 
-    public void setDesignationRole(String designationRole) {
+    public void setDesignationRole(RolesType designationRole) {
         this.designationRole = designationRole;
     }
 }

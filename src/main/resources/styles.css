@@ -4,8 +4,18 @@
 
 }
 .sidebarItem:hover{
+
 -fx-background-color:#146886;
 -fx-border-color:white;
 -fx-border-width:0px 0px 0px 3px;
 
+}
+.rounded_button{
+    -fx-background-color:#EFA367; /* Blue color */
+    -fx-background-radius: 15px; /* Rounded corners */
+    -fx-border-radius: 15px;
+    /* Slightly darker blue border */
+    -fx-text-fill: white; /* White text color */
+    -fx-font-size: 16px;
+    -fx-padding: 8px 16px;
 }

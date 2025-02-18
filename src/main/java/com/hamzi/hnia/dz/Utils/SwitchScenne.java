@@ -32,6 +32,17 @@ public class SwitchScenne {
         primaryStage.setScene(scene);
       centerStage();
     }
+    public Parent getNodeFxml(String filename) throws IOException {
+
+        Resource resource = new ClassPathResource("Views/"+filename);
+        FXMLLoader fxmlLoader = new FXMLLoader(resource.getURL());
+        fxmlLoader.setControllerFactory(applicationContext::getBean);
+        Parent root = fxmlLoader.load();
+
+        return root;
+
+    }
+
 
     public void centerStage(){
         double screenWidth = Screen.getPrimary().getVisualBounds().getWidth();
