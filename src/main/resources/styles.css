@@ -19,3 +19,7 @@
     -fx-font-size: 16px;
     -fx-padding: 8px 16px;
 }
+.userInformation{
+ -fx-border-color:blue;
+ -fx-background-radius: 0 10px 10px 0;
+}

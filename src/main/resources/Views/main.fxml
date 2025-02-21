@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hamzi.hnia.dz.Controllers.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hamzi.hnia.dz.Controllers.MainController">
    <children>
       <BorderPane fx:id="borderpane" layoutX="207.0" layoutY="58.0" prefHeight="400.0" prefWidth="629.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -138,9 +138,9 @@
             </AnchorPane>
          </left>
          <center>
-            <AnchorPane prefHeight="495.0" prefWidth="593.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="495.0" prefWidth="593.0">
                <children>
-                  <VBox fx:id="centerContainer" alignment="CENTER" layoutX="44.0" layoutY="69.0" prefHeight="341.0" prefWidth="488.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="70.0" />
+                  <VBox fx:id="centerContainer" alignment="CENTER" layoutX="20.0" layoutY="33.0" prefHeight="433.0" prefWidth="549.0" AnchorPane.bottomAnchor="33.33333333333337" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.66666666666663" AnchorPane.topAnchor="33.0" />
                </children>
             </AnchorPane>
          </center>

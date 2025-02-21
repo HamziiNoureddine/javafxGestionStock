@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="516.0" prefWidth="1108.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hamzi.hnia.dz.Controllers.Addusers">
+    <children>
+      <HBox alignment="CENTER" prefHeight="516.0" prefWidth="1108.0" style="-fx-background-radius: 20; -fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+              <VBox alignment="CENTER" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="516.0" prefWidth="1108.0">
+                  <children>
+                      <HBox maxWidth="-Infinity" prefHeight="425.0" prefWidth="1103.0">
+                          <children>
+                              <VBox alignment="CENTER" prefHeight="425.0" prefWidth="427.0">
+                                  <children>
+                                    <VBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="157.0" prefWidth="368.0" spacing="10.0" style="-fx-background-radius: 0 20 0 0;">
+                                        <children>
+                                            <Label minWidth="-Infinity" prefHeight="27.0" prefWidth="257.0" text="Informations sur L'Utilistateur" textFill="#cd1414" underline="true">
+                                                <font>
+                                                    <Font name="System Bold" size="18.0" />
+                                                </font>
+                                            </Label>
+                                            <Pane prefHeight="0.0" prefWidth="312.0" />
+                                            <HBox alignment="TOP_CENTER" minWidth="-Infinity" prefWidth="289.0">
+                                                <children>
+                                                    <TextField alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="290.0" promptText="Entrez votre Psodeau">
+                                                        <font>
+                                                            <Font size="15.0" />
+                                                        </font>
+                                                    </TextField>
+                                          <FontAwesomeIconView fill="WHITE" glyphName="EYE" size="12" visible="false" />
+                                                </children>
+                                            </HBox>
+                                            <HBox alignment="CENTER" minWidth="-Infinity" prefHeight="30.0" prefWidth="289.0">
+                                                <children>
+                                                    <PasswordField alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="290.0" promptText="Entrez votre Mot de Passe">
+                                                        <font>
+                                                            <Font size="15.0" />
+                                                        </font>
+                                                    </PasswordField>
+                                                    <FontAwesomeIconView fill="#682ed2" glyphName="EYE" size="12" translateX="-20.0" />
+                                                </children>
+                                            </HBox>
+                                            <HBox alignment="CENTER" minWidth="-Infinity" prefWidth="289.0">
+                                                <children>
+                                                    <PasswordField alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="290.0" promptText="Retappez votre Mot de Passe">
+                                                        <font>
+                                                            <Font size="15.0" />
+                                                        </font>
+                                                    </PasswordField>
+                                                    <FontAwesomeIconView fill="#682ed2" glyphName="EYE" size="12" translateX="-20.0" />
+                                                </children>
+                                            </HBox>
+                                        </children>
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" />
+                                 </VBox.margin>
+                                    </VBox>
+                              <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="182.0" prefWidth="185.0" spacing="20.0">
+                                 <children>
+                                    <Label text="Attribuer Des Roles" textFill="#cd1414" underline="true">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <CheckBox mnemonicParsing="false" prefHeight="20.0" prefWidth="95.0" text="Admin" textFill="#124cbf">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox mnemonicParsing="false" prefHeight="20.0" prefWidth="95.0" selected="true" text="Utilisateur" textFill="#124cbf">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox mnemonicParsing="false" prefHeight="20.0" prefWidth="95.0" text="Ajout" textFill="#124cbf">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox mnemonicParsing="false" prefHeight="20.0" prefWidth="95.0" text="Modifier" textFill="#124cbf">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox mnemonicParsing="false" prefHeight="20.0" prefWidth="95.0" text="Supprimer" textFill="#124cbf">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </CheckBox>
+                                 </children>
+                              </VBox>
+                                  </children>
+                           <padding>
+                              <Insets top="20.0" />
+                           </padding>
+                              </VBox>
+                        <VBox alignment="CENTER" prefHeight="425.0" prefWidth="591.0" spacing="20.0">
+                           <children>
+                              <Label alignment="CENTER" minWidth="-Infinity" prefHeight="27.0" prefWidth="257.0" text="Liste des Utilisateurs" textFill="#cd1414" underline="true">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <TableView prefHeight="335.0" prefWidth="537.0">
+                                <columns>
+                                  <TableColumn prefWidth="362.6666158437729" style="-fx-background-color: #EFA367; -fx-text-fill: white;" text="Psodeau" />
+                                  <TableColumn prefWidth="218.00003051757812" text="Option" />
+                                </columns>
+                              </TableView>
+                           </children>
+                           <padding>
+                              <Insets right="10.0" />
+                           </padding>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </VBox>
+                          </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                      </HBox>
+                      <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="432.0" style="-fx-background-color: #EFA367;" styleClass="rounded_button" stylesheets="@../styles.css" text="Enregistrer" />
+                  </children>
+                  <padding>
+                      <Insets bottom="30.0" />
+                  </padding>
+              </VBox>
+         </children>
+      </HBox>
+    </children>
+</AnchorPane>

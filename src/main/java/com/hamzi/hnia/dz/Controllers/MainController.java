@@ -1,5 +1,6 @@
 package com.hamzi.hnia.dz.Controllers;
 
+import animatefx.animation.FadeIn;
 import com.hamzi.hnia.dz.Utils.SwitchScenne;
 import com.jfoenix.controls.JFXButton;
 import javafx.animation.TranslateTransition;
@@ -68,10 +69,13 @@ public class MainController implements Initializable {
     @FXML
     public void loadParent(ActionEvent e) throws IOException {
         centerContainer.getChildren().clear();
-     AnchorPane child = (AnchorPane) switchScenne.getNodeFxml("addusers.fxml");
+
+     AnchorPane child = (AnchorPane) switchScenne.getNodeFxml("adduser2.fxml");
      child.prefWidthProperty().bind(centerContainer.widthProperty());
+
         child.prefHeightProperty().bind(centerContainer.heightProperty());
-        VBox.setVgrow(child,Priority.NEVER);
+       // VBox.setVgrow(child,Priority.NEVER);
+        new  FadeIn(centerContainer);
      centerContainer.getChildren().add(child);
 
 
