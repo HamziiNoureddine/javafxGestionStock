@@ -14,8 +14,21 @@ public class Users {
     private Integer codeUser;
     private String username;
     private String password;
+    private String email;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Roles> roles;
+
+    public Users() {
+
+    }
+
+    public Users(Integer codeUser, String username, String password, String email, List<Roles> roles) {
+        this.codeUser = codeUser;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.roles = roles;
+    }
 
     public String getUsername() {
         return username;
@@ -39,5 +52,21 @@ public class Users {
 
     public void setRoles(List<Roles> roles) {
         this.roles = roles;
+    }
+
+    public Integer getCodeUser() {
+        return codeUser;
+    }
+
+    public void setCodeUser(Integer codeUser) {
+        this.codeUser = codeUser;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

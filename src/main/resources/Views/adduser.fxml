@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="516.0" prefWidth="1108.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hamzi.hnia.dz.Controllers.Addusers">
+    <children>
+        <HBox alignment="CENTER" prefHeight="516.0" prefWidth="1108.0" style="-fx-background-radius: 20; -fx-background-color: #162C51;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox alignment="CENTER" prefHeight="516.0" prefWidth="1108.0" HBox.hgrow="ALWAYS">
+                    <children>
+                        <HBox alignment="CENTER" prefHeight="425.0" prefWidth="1103.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <VBox alignment="CENTER" prefHeight="425.0" prefWidth="427.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                              <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="467.0" />
+                                        <VBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="157.0" prefWidth="368.0" spacing="10.0" style="-fx-background-radius: 0 20 0 0;">
+                                            <children>
+                                                <Label minWidth="-Infinity" prefHeight="29.0" prefWidth="257.0" text="Informations sur L'Utilistateur" textFill="#eee8e8" underline="true">
+                                                    <font>
+                                                        <Font name="System Bold" size="18.0" />
+                                                    </font>
+                                                </Label>
+                                                <Pane prefHeight="0.0" prefWidth="312.0" />
+                                                <HBox alignment="TOP_CENTER" minWidth="-Infinity" prefWidth="289.0">
+                                                    <children>
+                                                        <TextField fx:id="pseudo" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="290.0" promptText="Entrez votre Pseudo" HBox.hgrow="ALWAYS">
+                                                            <font>
+                                                                <Font size="18.0" />
+                                                            </font>
+                                                        </TextField>
+                                                        <FontAwesomeIconView fill="WHITE" glyphName="EYE" size="12" visible="false" />
+                                                    </children>
+                                                </HBox>
+                                    <Label fx:id="pseudoError" prefHeight="20.0" prefWidth="340.0" text="Label" textFill="#d71212" visible="false">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="57.0" minWidth="-Infinity" prefWidth="289.0">
+                                       <children>
+                                          <TextField fx:id="email" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="290.0" promptText="Entrez votre Email" HBox.hgrow="ALWAYS">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </TextField>
+                                          <FontAwesomeIconView fill="WHITE" glyphName="EYE" size="12" visible="false" />
+                                       </children>
+                                    </HBox>
+                                    <Label fx:id="emailError" prefHeight="20.0" prefWidth="340.0" text="Label" textFill="#d71212" visible="false">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                                <HBox alignment="CENTER" minWidth="-Infinity" prefHeight="30.0" prefWidth="289.0">
+                                                    <children>
+                                                        <PasswordField fx:id="motdepasse" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="290.0" promptText="Entrez votre Mot de Passe" HBox.hgrow="ALWAYS">
+                                                            <font>
+                                                                <Font size="18.0" />
+                                                            </font>
+                                                        </PasswordField>
+                                                        <FontAwesomeIconView fill="#682ed2" glyphName="EYE" size="12" translateX="-20.0" />
+                                                    </children>
+                                                </HBox>
+                                    <Label fx:id="passwordError" prefHeight="20.0" prefWidth="340.0" text="Label" textFill="#d71212" visible="false">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                                <HBox alignment="CENTER" minWidth="-Infinity" prefWidth="289.0">
+                                                    <children>
+                                                        <PasswordField fx:id="retaperpasse" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="290.0" promptText="Retappez votre Mot de Passe" HBox.hgrow="ALWAYS">
+                                                            <font>
+                                                                <Font size="18.0" />
+                                                            </font>
+                                                        </PasswordField>
+                                                        <FontAwesomeIconView fill="#682ed2" glyphName="EYE" size="12" translateX="-20.0" />
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                            <VBox.margin>
+                                                <Insets bottom="20.0" />
+                                            </VBox.margin>
+                                        </VBox>
+                              <Label fx:id="retapError" alignment="CENTER" prefHeight="20.0" prefWidth="340.0" text="Label" textFill="#d71212" visible="false">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                                        <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="182.0" prefWidth="185.0" spacing="20.0">
+                                            <children>
+                                                <Label text="Attribuer Des Roles" textFill="#eee8e8" underline="true">
+                                                    <font>
+                                                        <Font name="System Bold" size="18.0" />
+                                                    </font>
+                                                </Label>
+                                                <CheckBox fx:id="Admin" mnemonicParsing="false" onAction="#addRoles" prefHeight="20.0" prefWidth="95.0" text="Admin" textFill="#eee8e8">
+                                                    <font>
+                                                        <Font name="System Bold" size="12.0" />
+                                                    </font>
+                                                </CheckBox>
+                                                <CheckBox fx:id="Utilisateur" mnemonicParsing="false" onAction="#addRoles" prefHeight="20.0" prefWidth="95.0" selected="true" text="Utilisateur" textFill="#eee8e8">
+                                                    <font>
+                                                        <Font name="System Bold" size="12.0" />
+                                                    </font>
+                                                </CheckBox>
+                                                <CheckBox fx:id="Ajout" mnemonicParsing="false" onAction="#addRoles" prefHeight="20.0" prefWidth="95.0" text="Ajout" textFill="#eee8e8">
+                                                    <font>
+                                                        <Font name="System Bold" size="12.0" />
+                                                    </font>
+                                                </CheckBox>
+                                                <CheckBox fx:id="Modifier" mnemonicParsing="false" onAction="#addRoles" prefHeight="20.0" prefWidth="95.0" text="Modifier" textFill="#eee8e8">
+                                                    <font>
+                                                        <Font name="System Bold" size="12.0" />
+                                                    </font>
+                                                </CheckBox>
+                                                <CheckBox fx:id="Supprimer" mnemonicParsing="false" onAction="#addRoles" prefHeight="20.0" prefWidth="95.0" text="Supprimer" textFill="#eee8e8">
+                                                    <font>
+                                                        <Font name="System Bold" size="12.0" />
+                                                    </font>
+                                                </CheckBox>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                    <padding>
+                                        <Insets top="20.0" />
+                                    </padding>
+                                </VBox>
+                                <VBox alignment="CENTER" prefHeight="425.0" prefWidth="591.0" spacing="20.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Label alignment="CENTER" minWidth="-Infinity" prefHeight="27.0" prefWidth="257.0" text="Liste des Utilisateurs" textFill="#eee8e8" underline="true">
+                                            <font>
+                                                <Font name="System Bold" size="18.0" />
+                                            </font>
+                                        </Label>
+                                        <TableView fx:id="listUserTable" onMouseClicked="#getSelected" prefHeight="455.0" prefWidth="606.0" stylesheets="@../styles.css">
+                                            <columns>
+                                                <TableColumn fx:id="pseudoCell" prefWidth="227.0" style="-fx-font-size: 18;" text="Pseudo" />
+                                                <TableColumn fx:id="emailCells" prefWidth="221.0" style="-fx-font-size: 18;" text="Email" />
+                                    <TableColumn fx:id="roleCell" prefWidth="220.0" style="-fx-font-size: 18;" text="Roles" />
+                                    <TableColumn fx:id="optionCells" prefWidth="115.0" style="-fx-font-size: 18;" text="Option" />
+                                            </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                                 <styleClass>
+                                    <String fx:value="column-header" />
+                                    <String fx:value="column-header-background" />
+                                 </styleClass>
+                                        </TableView>
+                                    </children>
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                           <padding>
+                              <Insets right="30.0" />
+                           </padding>
+                                </VBox>
+                            </children>
+                            <VBox.margin>
+                                <Insets bottom="20.0" />
+                            </VBox.margin>
+                        </HBox>
+                        <Button fx:id="addButton" mnemonicParsing="false" onAction="#addUser" prefHeight="41.0" prefWidth="432.0" style="-fx-background-color: #EFA367;" styleClass="rounded_button" stylesheets="@../styles.css" text="Enregistrer" />
+                    </children>
+                    <padding>
+                        <Insets bottom="30.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

@@ -1,8 +1,10 @@
 package com.hamzi.hnia.dz.Utils;
 
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +56,28 @@ public class SwitchScenne {
         primaryStage.setX((screenWidth - stageWidth)/2);
         primaryStage.setY((screenHeight - stageHeight)/2);
         primaryStage.show();
+    }
+
+    public void slideTransitioinChild(AnchorPane child, TranslateTransition slide,double slider,double childPosition, boolean slidTo){
+        if(slidTo & child != null){
+            double screen = Screen.getPrimary().getVisualBounds().getWidth();
+
+            double traslateX = -(screen - child.getWidth() - slider)/2 ;
+
+            slide.setToX(childPosition);
+            System.out.println(traslateX-slider/5 + " : "+ -(traslateX-slider/5));
+            slide.play();
+            child.setTranslateX(traslateX-slider/5);
+        }else if(!slidTo & child != null){
+            double screen = Screen.getPrimary().getVisualBounds().getWidth();
+
+            double traslateX = -(screen - child.getWidth() - slider)/2 ;
+
+            slide.setToX(traslateX-slider/5);
+            slide.play();
+            child.setTranslateX(child.getLayoutX());
+        }
+
     }
 
 }
