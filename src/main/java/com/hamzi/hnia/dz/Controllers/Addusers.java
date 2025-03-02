@@ -7,6 +7,8 @@ import com.hamzi.hnia.dz.ModelsFX.UsersFX;
 import com.hamzi.hnia.dz.Services.rolesService;
 import com.hamzi.hnia.dz.Services.usersService;
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,9 +25,13 @@ import org.springframework.stereotype.Component;
 
 import java.net.URL;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Component
 public class Addusers implements Initializable {
+    private static final String EMAIL_PATTERN = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+    private final Pattern pattern = Pattern.compile(EMAIL_PATTERN);
     @FXML
     private AnchorPane rootPane;
 
@@ -57,6 +63,9 @@ public class Addusers implements Initializable {
     private CheckBox Supprimer;
 
     @FXML
+    private Button addButton;
+
+    @FXML
     private Label pseudoError;
     @FXML
     private Label emailError;
@@ -64,6 +73,7 @@ public class Addusers implements Initializable {
     private Label passwordError;
     @FXML
     private Label retapError;
+    Map<Label,String> validationMessage =new HashMap<>();
 
     Integer selectedRows;
 
@@ -100,6 +110,8 @@ public class Addusers implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setValidationMessage();
+
         listRoles.add("Utilisateur");
         List<UsersFX> usersFx = new ArrayList<>();
         List<Users> listusers = userService.listUsers();
@@ -121,6 +133,22 @@ public class Addusers implements Initializable {
 
     @FXML
     public void addUser(ActionEvent event){
+        validateMessage.clear();
+        clearLabelMessage();
+        setValidationMessage();
+
+
+        if(!validateMessage.isEmpty()){
+            validateMessage.forEach((key,value)->{
+
+                key.setText(value);
+                key.setVisible(true);
+
+            });
+
+            return;
+        }
+
         List<Roles> roleListe = new ArrayList<>();
         listRoles.forEach(roles->{
             Roles role = roleService.getRolesByDesignation(RolesType.valueOf(roles));
@@ -181,10 +209,36 @@ public class Addusers implements Initializable {
         pseudo.setText(user.getUsername());
         email.setText(user.getEmail());
 
+
         Integer codeUser = user.getCodeUser();
         listUserTable.setItems(obsListUsers);
 
 
+    }
+
+public void setValidationMessage(){
+    Matcher matcher = pattern.matcher(email.getText());
+        if(pseudo.getText().isEmpty() || pseudo.getText().length() < 5)
+            validateMessage.put(pseudoError,"Ce champ est obligatoire et doit contenir au minimum 5 caractères.");
+
+         if(!matcher.matches())
+            validateMessage.put(emailError,"Ce champ doit respecter le format *****@*****");
+
+         if (motdepasse.getText().isEmpty() || motdepasse.getText().length() < 8)
+            validateMessage.put(passwordError,"Ce champ est obligatoire et doit contenir au minimum 8 caractères.");
+
+        if (retaperpasse.getText().isEmpty() || retaperpasse.getText().length() < 5)
+            validateMessage.put(retapError,"Ce champ est obligatoire et doit contenir au minimum 5 caractères.");
+
+      //  addButton.setDisable(!validateMessage.isEmpty());
+        System.out.println("validation is executed.....................");
+    }
+
+    public void clearLabelMessage(){
+        pseudoError.setText("");
+        emailError.setText("");
+        passwordError.setText("");
+        retapError.setText("");
     }
 }
 
