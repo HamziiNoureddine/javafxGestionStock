@@ -20,13 +20,13 @@
     <children>
         <HBox alignment="CENTER" prefHeight="516.0" prefWidth="1108.0" style="-fx-background-radius: 20; -fx-background-color: #162C51;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <VBox alignment="CENTER" prefHeight="516.0" prefWidth="1108.0" HBox.hgrow="ALWAYS">
+                <VBox alignment="CENTER" prefHeight="871.0" prefWidth="1108.0" HBox.hgrow="ALWAYS">
                     <children>
-                        <HBox alignment="CENTER" prefHeight="425.0" prefWidth="1103.0" VBox.vgrow="ALWAYS">
+                        <HBox alignment="CENTER" prefHeight="751.0" prefWidth="1108.0" VBox.vgrow="ALWAYS">
                             <children>
                                 <VBox alignment="CENTER" prefHeight="425.0" prefWidth="427.0" HBox.hgrow="ALWAYS">
                                     <children>
-                              <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" prefWidth="467.0" />
+                              <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="33.0" prefWidth="472.0" />
                                         <VBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="157.0" prefWidth="368.0" spacing="10.0" style="-fx-background-radius: 0 20 0 0;">
                                             <children>
                                                 <Label minWidth="-Infinity" prefHeight="29.0" prefWidth="257.0" text="Informations sur L'Utilistateur" textFill="#eee8e8" underline="true">
@@ -37,7 +37,7 @@
                                                 <Pane prefHeight="0.0" prefWidth="312.0" />
                                                 <HBox alignment="TOP_CENTER" minWidth="-Infinity" prefWidth="289.0">
                                                     <children>
-                                                        <TextField fx:id="pseudo" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#setValidationMessage" prefHeight="30.0" prefWidth="290.0" promptText="Entrez votre Pseudo" HBox.hgrow="ALWAYS">
+                                                        <TextField fx:id="pseudo" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" onAction="#setValidationMessage" prefHeight="40.0" prefWidth="361.0" promptText="Entrez votre Pseudo" HBox.hgrow="ALWAYS">
                                                             <font>
                                                                 <Font size="18.0" />
                                                             </font>
@@ -45,14 +45,14 @@
                                                         <FontAwesomeIconView fill="WHITE" glyphName="EYE" size="12" visible="false" />
                                                     </children>
                                                 </HBox>
-                                    <Label fx:id="pseudoError" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="360.0" textFill="#f09800" wrapText="true">
+                                    <Label fx:id="pseudoError" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="46.0" prefWidth="360.0" textFill="#f09800" wrapText="true">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
                                     <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="57.0" minWidth="-Infinity" prefWidth="289.0">
                                        <children>
-                                          <TextField fx:id="email" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" onDragExited="#setValidationMessage" prefHeight="30.0" prefWidth="290.0" promptText="Entrez votre Email" HBox.hgrow="ALWAYS">
+                                          <TextField fx:id="email" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" onDragExited="#setValidationMessage" prefHeight="40.0" prefWidth="361.0" promptText="Entrez votre Email" HBox.hgrow="ALWAYS">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -60,34 +60,36 @@
                                           <FontAwesomeIconView fill="WHITE" glyphName="EYE" size="12" visible="false" />
                                        </children>
                                     </HBox>
-                                    <Label fx:id="emailError" alignment="CENTER" minHeight="-Infinity" prefHeight="45.0" prefWidth="360.0" textFill="#f09800" wrapText="true">
+                                    <Label fx:id="emailError" minHeight="-Infinity" prefHeight="46.0" prefWidth="360.0" textFill="#f09800" wrapText="true">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
                                                 <HBox alignment="CENTER" minWidth="-Infinity" prefHeight="30.0" prefWidth="289.0">
                                                     <children>
-                                                        <PasswordField fx:id="motdepasse" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" onDragExited="#setValidationMessage" prefHeight="30.0" prefWidth="290.0" promptText="Entrez votre Mot de Passe" HBox.hgrow="ALWAYS">
+                                                        <PasswordField fx:id="motdepasse" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" onDragExited="#setValidationMessage" prefHeight="40.0" prefWidth="361.0" promptText="Entrez votre Mot de Passe" HBox.hgrow="ALWAYS">
                                                             <font>
                                                                 <Font size="18.0" />
                                                             </font>
                                                         </PasswordField>
-                                                        <FontAwesomeIconView fill="#682ed2" glyphName="EYE" size="12" translateX="-20.0" />
+                                                        <FontAwesomeIconView fx:id="passEYE" fill="#682ed2" glyphName="EYE" size="12" translateX="-20.0" />
+                                          <FontAwesomeIconView fx:id="passEYES" fill="#682ed2" glyphName="EYE_SLASH" layoutX="366.0" layoutY="34.0" onMouseClicked="#viewPassword" size="12" translateX="-32.0" />
                                                     </children>
                                                 </HBox>
-                                    <Label fx:id="passwordError" alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="45.0" prefWidth="360.0" textFill="#f09800" wrapText="true">
+                                    <Label fx:id="passwordError" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="46.0" prefWidth="360.0" textFill="#f09800" wrapText="true">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                                <HBox alignment="CENTER" minWidth="-Infinity" prefWidth="289.0">
+                                                <HBox fx:id="passbox" alignment="CENTER" minWidth="-Infinity" prefWidth="289.0">
                                                     <children>
-                                                        <PasswordField fx:id="retaperpasse" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" onDragExited="#setValidationMessage" prefHeight="30.0" prefWidth="290.0" promptText="Retappez votre Mot de Passe" HBox.hgrow="ALWAYS">
+                                                        <PasswordField fx:id="retaperpasse" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" onDragExited="#setValidationMessage" prefHeight="40.0" prefWidth="361.0" promptText="Retappez votre Mot de Passe" HBox.hgrow="ALWAYS">
                                                             <font>
                                                                 <Font size="18.0" />
                                                             </font>
                                                         </PasswordField>
-                                                        <FontAwesomeIconView fill="#682ed2" glyphName="EYE" size="12" translateX="-20.0" />
+                                                        <FontAwesomeIconView fx:id="repassEYE" fill="#682ed2" glyphName="EYE" size="12" translateX="-20.0" />
+                                          <FontAwesomeIconView fx:id="repassEYES" fill="#682ed2" glyphName="EYE_SLASH" layoutX="366.0" layoutY="34.0" size="12" translateX="-32.0" />
                                                     </children>
                                                 </HBox>
                                             </children>
@@ -95,7 +97,7 @@
                                                 <Insets bottom="20.0" />
                                             </VBox.margin>
                                         </VBox>
-                              <Label fx:id="retapError" alignment="CENTER" minHeight="-Infinity" prefHeight="45.0" prefWidth="360.0" textFill="#f09800" wrapText="true">
+                              <Label fx:id="retapError" minHeight="-Infinity" prefHeight="46.0" prefWidth="360.0" textFill="#f09800" wrapText="true">
                                  <VBox.margin>
                                     <Insets bottom="10.0" />
                                  </VBox.margin>
@@ -112,31 +114,39 @@
                                                 </Label>
                                                 <CheckBox fx:id="Admin" mnemonicParsing="false" onAction="#addRoles" prefHeight="20.0" prefWidth="95.0" text="Admin" textFill="#eee8e8">
                                                     <font>
-                                                        <Font name="System Bold" size="12.0" />
+                                                        <Font name="System Bold" size="14.0" />
                                                     </font>
                                                 </CheckBox>
                                                 <CheckBox fx:id="Utilisateur" mnemonicParsing="false" onAction="#addRoles" prefHeight="20.0" prefWidth="95.0" selected="true" text="Utilisateur" textFill="#eee8e8">
                                                     <font>
-                                                        <Font name="System Bold" size="12.0" />
+                                                        <Font name="System Bold" size="14.0" />
                                                     </font>
                                                 </CheckBox>
                                                 <CheckBox fx:id="Ajout" mnemonicParsing="false" onAction="#addRoles" prefHeight="20.0" prefWidth="95.0" text="Ajout" textFill="#eee8e8">
                                                     <font>
-                                                        <Font name="System Bold" size="12.0" />
+                                                        <Font name="System Bold" size="14.0" />
                                                     </font>
                                                 </CheckBox>
                                                 <CheckBox fx:id="Modifier" mnemonicParsing="false" onAction="#addRoles" prefHeight="20.0" prefWidth="95.0" text="Modifier" textFill="#eee8e8">
                                                     <font>
-                                                        <Font name="System Bold" size="12.0" />
+                                                        <Font name="System Bold" size="14.0" />
                                                     </font>
                                                 </CheckBox>
                                                 <CheckBox fx:id="Supprimer" mnemonicParsing="false" onAction="#addRoles" prefHeight="20.0" prefWidth="95.0" text="Supprimer" textFill="#eee8e8">
                                                     <font>
-                                                        <Font name="System Bold" size="12.0" />
+                                                        <Font name="System Bold" size="14.0" />
                                                     </font>
                                                 </CheckBox>
                                             </children>
                                         </VBox>
+                              <Label fx:id="roleError" layoutX="66.0" layoutY="440.0" minHeight="-Infinity" prefHeight="46.0" prefWidth="360.0" textFill="#f09800" wrapText="true">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets top="5.0" />
+                                 </VBox.margin>
+                              </Label>
                                     </children>
                                     <padding>
                                         <Insets top="20.0" />
@@ -164,6 +174,7 @@
                                     <String fx:value="column-header-background" />
                                  </styleClass>
                                         </TableView>
+                              <Pane prefHeight="120.0" prefWidth="606.0" />
                                     </children>
                                     <HBox.margin>
                                         <Insets />
@@ -177,11 +188,27 @@
                                 <Insets bottom="20.0" />
                             </VBox.margin>
                         </HBox>
-                        <Button fx:id="addButton" mnemonicParsing="false" onAction="#addUser" prefHeight="41.0" prefWidth="432.0" style="-fx-background-color: #EFA367;" styleClass="rounded_button" stylesheets="@../styles.css" text="Enregistrer" />
+                  <HBox alignment="TOP_CENTER" spacing="30.0">
+                     <children>
+                        <Button fx:id="modifButton" layoutX="386.0" layoutY="10.0" mnemonicParsing="false" onAction="#modifUser" prefHeight="54.0" prefWidth="357.0" style="-fx-background-color: #EFA367;" styleClass="rounded_button" stylesheets="@../styles.css" text="Modifier">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                              <Button fx:id="addButton" mnemonicParsing="false" onAction="#addUser" prefHeight="54.0" prefWidth="357.0" style="-fx-background-color: #EFA367;" styleClass="rounded_button" stylesheets="@../styles.css" text="Enregistrer">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
                     </children>
-                    <padding>
-                        <Insets bottom="30.0" />
-                    </padding>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="50.0" />
+               </padding>
                 </VBox>
             </children>
         </HBox>

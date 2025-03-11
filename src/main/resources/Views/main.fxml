@@ -140,7 +140,7 @@
          <center>
             <AnchorPane prefHeight="495.0" prefWidth="593.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox fx:id="centerContainer" alignment="CENTER" layoutX="44.0" layoutY="69.0" prefHeight="341.0" prefWidth="488.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="70.0" />
+                  <VBox fx:id="centerContainer" alignment="CENTER" layoutX="44.0" layoutY="69.0" prefHeight="341.0" prefWidth="488.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="40.0" />
                </children>
             </AnchorPane>
          </center>

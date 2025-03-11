@@ -11,11 +11,12 @@ import java.util.List;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer codeUser;
     private String username;
     private String password;
     private String email;
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
     private List<Roles> roles;
 
     public Users() {

@@ -6,9 +6,12 @@ import com.hamzi.hnia.dz.Models.Users;
 import com.hamzi.hnia.dz.ModelsFX.UsersFX;
 import com.hamzi.hnia.dz.Services.rolesService;
 import com.hamzi.hnia.dz.Services.usersService;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,7 +21,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -66,6 +71,15 @@ public class Addusers implements Initializable {
     private Button addButton;
 
     @FXML
+    private FontAwesomeIconView passEYE;
+    @FXML
+    private FontAwesomeIconView repassEYE;
+    @FXML
+    private FontAwesomeIconView passEYES;
+    @FXML
+    private FontAwesomeIconView repassEYES;
+
+    @FXML
     private Label pseudoError;
     @FXML
     private Label emailError;
@@ -73,6 +87,10 @@ public class Addusers implements Initializable {
     private Label passwordError;
     @FXML
     private Label retapError;
+
+    @FXML
+    private Label roleError;
+
     Map<Label,String> validationMessage =new HashMap<>();
 
     Integer selectedRows;
@@ -92,6 +110,7 @@ public class Addusers implements Initializable {
     @FXML
     private TableColumn<Node, Button> optionCells;
 
+
     private final  Map<Label,String> validateMessage = new HashMap<>();
     private final List<String> listRoles = new ArrayList<>();
 
@@ -101,6 +120,7 @@ public class Addusers implements Initializable {
     private final usersService userService;
     private final PasswordEncoder passwordEncoder;
     private final rolesService roleService;
+    private  Users user;
 
     public Addusers(usersService userService, PasswordEncoder passwordEncoder, rolesService roleService) {
         this.userService = userService;
@@ -110,16 +130,15 @@ public class Addusers implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setValidationMessage();
 
+
+        if(user != null)
+            user = null;
+        listRoles.clear();
+
+         obsListUsers.clear();
         listRoles.add("Utilisateur");
-        List<UsersFX> usersFx = new ArrayList<>();
-        List<Users> listusers = userService.listUsers();
-
-        listusers.forEach(users -> {
-            UsersFX user = new UsersFX(users);
-            obsListUsers.add(user);
-        });
+        reloadListUsers();
 
         pseudoCell.setCellValueFactory(new PropertyValueFactory<>("Username"));
         emailCells.setCellValueFactory(new PropertyValueFactory<>("Email"));
@@ -136,18 +155,9 @@ public class Addusers implements Initializable {
         validateMessage.clear();
         clearLabelMessage();
         setValidationMessage();
+        if(!validateMessage.isEmpty())
+                return;
 
-
-        if(!validateMessage.isEmpty()){
-            validateMessage.forEach((key,value)->{
-
-                key.setText(value);
-                key.setVisible(true);
-
-            });
-
-            return;
-        }
 
         List<Roles> roleListe = new ArrayList<>();
         listRoles.forEach(roles->{
@@ -175,15 +185,17 @@ public class Addusers implements Initializable {
        }
     }
     public void getSelected(){
+      clearControlle();
+      clearLabelMessage();
       selectedRows = listUserTable.getSelectionModel().getSelectedIndex();
 
-       Users user =  userService.getuserByUsername(pseudoCell.getCellData(selectedRows));
-        listRoles.clear();
-        Utilisateur.setSelected(false);
-        Admin.setSelected(false);
-        Ajout.setSelected(false);
-        Modifier.setSelected(false);
-        Supprimer.setSelected(false);
+       user =  userService.getuserByUsername(pseudoCell.getCellData(selectedRows));
+       listRoles.clear();
+       Utilisateur.setSelected(false);
+       Admin.setSelected(false);
+       Ajout.setSelected(false);
+       Modifier.setSelected(false);
+       Supprimer.setSelected(false);
        user.getRoles().forEach(roles -> {
 
 
@@ -206,40 +218,147 @@ public class Addusers implements Initializable {
                   listRoles.add("Supprimer");
               }
        });
+
         pseudo.setText(user.getUsername());
-        email.setText(user.getEmail());
-
-
+        email.setText(user.getEmail()!=null?user.getEmail():"");
         Integer codeUser = user.getCodeUser();
         listUserTable.setItems(obsListUsers);
 
-
     }
 
+@FXML
+private void modifUser(ActionEvent event ){
+       validateMessage.clear();
+       clearLabelMessage();
+       setValidationMessage();
+    if(!validateMessage.isEmpty())
+        return;
+
+
+    List<Roles> roleListe = new ArrayList<>();
+       listRoles.forEach(roles->{
+
+        Roles role = roleService.getRolesByDesignation(RolesType.valueOf(roles));
+        roleListe.add(role);
+    });
+       user.setRoles(roleListe);
+       user.setUsername(pseudo.getText());
+       user.setEmail(email.getText());
+       if(!motdepasse.getText().isEmpty())
+           user.setPassword(passwordEncoder.encode((motdepasse.getText())));
+      Users userModif =  userService.addUser(user);
+    System.out.println(userModif);
+         reloadListUsers();
+
+     }
+public void reloadListUsers(){
+    obsListUsers.clear();
+    List<UsersFX> usersFx = new ArrayList<>();
+    List<Users> listusers = userService.listUsers();
+
+    listusers.forEach(users -> {
+
+        UsersFX user = new UsersFX(users);
+        obsListUsers.add(user);
+    });
+}
+
 public void setValidationMessage(){
-    Matcher matcher = pattern.matcher(email.getText());
-        if(pseudo.getText().isEmpty() || pseudo.getText().length() < 5)
+       if(pseudo.getText().isEmpty() || pseudo.getText().length() < 5)
             validateMessage.put(pseudoError,"Ce champ est obligatoire et doit contenir au minimum 5 caractères.");
+        else{ pseudoError.setVisible(false);}
 
-         if(!matcher.matches())
-            validateMessage.put(emailError,"Ce champ doit respecter le format *****@*****");
-
-         if (motdepasse.getText().isEmpty() || motdepasse.getText().length() < 8)
-            validateMessage.put(passwordError,"Ce champ est obligatoire et doit contenir au minimum 8 caractères.");
-
+        if(email != null) {
+            Matcher matcher = pattern.matcher(email.getText());
+            if (!matcher.matches())
+                validateMessage.put(emailError, "Ce champ doit respecter le format *****@*****");
+            else {
+                emailError.setVisible(false);
+            }
+        }
+         if( user== null ) {
+             if (motdepasse.getText().isEmpty() || motdepasse.getText().length() < 8)
+                 validateMessage.put(passwordError, "Ce champ est obligatoire et doit contenir au minimum 8 caractères.");
+             else {
+                 passwordError.setVisible(false);
+             }
+         }
+    if( user== null ) {
         if (retaperpasse.getText().isEmpty() || retaperpasse.getText().length() < 5)
-            validateMessage.put(retapError,"Ce champ est obligatoire et doit contenir au minimum 5 caractères.");
-
+         validateMessage.put(retapError, "Ce champ est obligatoire et doit contenir au minimum 5 caractères.");
+        else if (!motdepasse.getText().equals(retaperpasse.getText())) {
+            validateMessage.put(retapError, "le mot de passe ne correspond pas.");
+        } else {
+            retapError.setVisible(false);
+        }
+    }else {
+        if (!motdepasse.getText().equals(retaperpasse.getText())) {
+            validateMessage.put(retapError, "le mot de passe ne correspond pas.");
+        } else {
+            retapError.setVisible(false);
+        }
+    }
+    if (listRoles.isEmpty() )
+        validateMessage.put(roleError,"Ce champ est obligatoire vous devez selectionner au minimum 1 Role.");
+    else{ roleError.setVisible(false);}
       //  addButton.setDisable(!validateMessage.isEmpty());
+
+    if(!validateMessage.isEmpty()){
+        validateMessage.forEach((key,value)->{
+            key.setStyle("""
+                        -fx-background-color: rgba(255, 0, 0, 0.3); \
+                         -fx-text-fill: orange; /* Text color */
+                            -fx-padding: 1px 5px; /* Padding for spacing */
+                            -fx-border-color: red; /* Border matching text */
+                            -fx-border-width: 1px;\s
+                            -fx-border-radius: 5px; /* Rounded border */""");
+            key.setText(value);
+            key.setVisible(true);
+
+        });
+
+
+    }
         System.out.println("validation is executed.....................");
     }
 
     public void clearLabelMessage(){
         pseudoError.setText("");
+        pseudoError.setVisible(false);
         emailError.setText("");
+        emailError.setVisible(false);
         passwordError.setText("");
+        passwordError.setVisible(false);
         retapError.setText("");
+        retapError.setVisible(false);
+        roleError.setText("");
+        roleError.setVisible(false);
     }
-}
+
+    public void clearControlle(){
+        pseudo.setText("");
+        email.setText("");
+        motdepasse.setText("");
+        retaperpasse.setText("");
+    }
+   @FXML
+    public void viewPassword(MouseEvent event){
+       System.out.println("Clicked fontawesomeiconview");
+
+
+       if( event.getSource() == passEYES ) {
+
+
+            passEYES.setVisible(false);
+
+
+
+
+        }
+        }
+    }
+
+
+
 
 
