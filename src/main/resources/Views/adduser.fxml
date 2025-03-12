@@ -13,6 +13,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -65,33 +66,43 @@
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                                <HBox alignment="CENTER" minWidth="-Infinity" prefHeight="30.0" prefWidth="289.0">
-                                                    <children>
-                                                        <PasswordField fx:id="motdepasse" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" onDragExited="#setValidationMessage" prefHeight="40.0" prefWidth="361.0" promptText="Entrez votre Mot de Passe" HBox.hgrow="ALWAYS">
+                                    <AnchorPane>
+                                       <children>
+                                                        <PasswordField fx:id="motdepasse" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" onDragExited="#setValidationMessage" prefHeight="40.0" prefWidth="361.0" promptText="Entrez votre Mot de Passe">
                                                             <font>
                                                                 <Font size="18.0" />
                                                             </font>
                                                         </PasswordField>
-                                                        <FontAwesomeIconView fx:id="passEYE" fill="#682ed2" glyphName="EYE" size="12" translateX="-20.0" />
-                                          <FontAwesomeIconView fx:id="passEYES" fill="#682ed2" glyphName="EYE_SLASH" layoutX="366.0" layoutY="34.0" onMouseClicked="#viewPassword" size="12" translateX="-32.0" />
-                                                    </children>
-                                                </HBox>
+                                          <FontAwesomeIconView fx:id="passEYES" fill="#682ed2" glyphName="EYE_SLASH" layoutX="362.0" layoutY="24.0" onMouseClicked="#viewPassword" size="14" translateX="-29.0" />
+                                          <TextField fx:id="viewpassText" alignment="CENTER" layoutY="-2.0" prefHeight="40.0" prefWidth="361.0" translateY="2.0">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </TextField>
+                                                        <FontAwesomeIconView fx:id="passEYE" fill="#682ed2" glyphName="EYE" layoutX="336.0" layoutY="24.0" onMouseClicked="#viewPassword" size="14" translateX="-2.0" wrappingWidth="14.0" />
+                                       </children>
+                                    </AnchorPane>
                                     <Label fx:id="passwordError" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="46.0" prefWidth="360.0" textFill="#f09800" wrapText="true">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
                                     </Label>
-                                                <HBox fx:id="passbox" alignment="CENTER" minWidth="-Infinity" prefWidth="289.0">
-                                                    <children>
-                                                        <PasswordField fx:id="retaperpasse" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" onDragExited="#setValidationMessage" prefHeight="40.0" prefWidth="361.0" promptText="Retappez votre Mot de Passe" HBox.hgrow="ALWAYS">
+                                    <AnchorPane>
+                                       <children>
+                                                        <PasswordField fx:id="retaperpasse" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" onDragExited="#setValidationMessage" prefHeight="40.0" prefWidth="361.0" promptText="Retappez votre Mot de Passe">
                                                             <font>
                                                                 <Font size="18.0" />
                                                             </font>
                                                         </PasswordField>
-                                                        <FontAwesomeIconView fx:id="repassEYE" fill="#682ed2" glyphName="EYE" size="12" translateX="-20.0" />
-                                          <FontAwesomeIconView fx:id="repassEYES" fill="#682ed2" glyphName="EYE_SLASH" layoutX="366.0" layoutY="34.0" size="12" translateX="-32.0" />
-                                                    </children>
-                                                </HBox>
+                                          <FontAwesomeIconView fx:id="repassEYES" fill="#682ed2" glyphName="EYE_SLASH" layoutX="367.0" layoutY="24.0" onMouseClicked="#viewPassword" size="14" translateX="-32.0" translateY="2.0" />
+                                          <TextField fx:id="viewrepassText" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="361.0">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </TextField>
+                                                        <FontAwesomeIconView fx:id="repassEYE" fill="#682ed2" glyphName="EYE" layoutX="337.0" layoutY="26.0" onMouseClicked="#viewPassword" size="14" />
+                                       </children>
+                                    </AnchorPane>
                                             </children>
                                             <VBox.margin>
                                                 <Insets bottom="20.0" />
@@ -159,6 +170,20 @@
                                                 <Font name="System Bold" size="18.0" />
                                             </font>
                                         </Label>
+                              <StackPane alignment="BASELINE_RIGHT">
+                                 <children>
+                                    <TextField prefHeight="35.0" prefWidth="606.0" promptText=" Chercher  un Utilisateur">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </TextField>
+                                    <FontAwesomeIconView fill="#6161dd" glyphName="SEARCH" size="22" tabSize="15">
+                                       <StackPane.margin>
+                                          <Insets right="14.0" />
+                                       </StackPane.margin>
+                                    </FontAwesomeIconView>
+                                 </children>
+                              </StackPane>
                                         <TableView fx:id="listUserTable" onMouseClicked="#getSelected" prefHeight="455.0" prefWidth="606.0" stylesheets="@../styles.css">
                                             <columns>
                                                 <TableColumn fx:id="pseudoCell" prefWidth="227.0" style="-fx-font-size: 18;" text="Pseudo" />
@@ -180,7 +205,7 @@
                                         <Insets />
                                     </HBox.margin>
                            <padding>
-                              <Insets right="30.0" />
+                              <Insets right="60.0" />
                            </padding>
                                 </VBox>
                             </children>

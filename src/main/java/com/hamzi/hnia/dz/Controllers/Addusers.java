@@ -109,6 +109,11 @@ public class Addusers implements Initializable {
 
     @FXML
     private TableColumn<Node, Button> optionCells;
+    @FXML
+    private TextField viewpassText;
+
+    @FXML
+    private TextField viewrepassText;
 
 
     private final  Map<Label,String> validateMessage = new HashMap<>();
@@ -130,8 +135,7 @@ public class Addusers implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
+        initializeViewpassText();
         if(user != null)
             user = null;
         listRoles.clear();
@@ -347,15 +351,41 @@ public void setValidationMessage(){
 
 
        if( event.getSource() == passEYES ) {
-
-
             passEYES.setVisible(false);
+            viewpassText.setVisible(true);
+            viewpassText.setManaged(true);
+            passEYE.setVisible(true);
 
 
 
+        } else if (event.getSource() == passEYE) {
+           passEYES.setVisible(true);
+           viewpassText.setVisible(false);
+           viewpassText.setManaged(false);
+           passEYE.setVisible(false);
+       } else if ( event.getSource() == repassEYES) {
+           repassEYES.setVisible(false);
+           viewrepassText.setVisible(true);
+           viewrepassText.setManaged(true);
+           repassEYE.setVisible(true);
+       } else if (event.getSource() == repassEYE) {
+           repassEYES.setVisible(true);
+           viewrepassText.setVisible(false);
+           viewrepassText.setManaged(false);
+           repassEYE.setVisible(false);
+       }
+   }
 
-        }
-        }
+   public void initializeViewpassText(){
+       viewpassText.setManaged(false);
+       viewpassText.setVisible(false);
+       viewpassText.textProperty().bindBidirectional(motdepasse.textProperty());
+       passEYE.setVisible(false);
+       viewrepassText.setManaged(false);
+       viewrepassText.setVisible(false);
+       viewrepassText.textProperty().bindBidirectional(retaperpasse.textProperty());
+       repassEYE.setVisible(false);
+   }
     }
 
 
