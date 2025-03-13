@@ -14,6 +14,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -102,6 +103,7 @@ public class Addusers implements Initializable {
     @FXML
     private TableColumn<UsersFX,String> pseudoCell;
 
+
     @FXML
     private TableColumn<UsersFX,String> emailCells;
     @FXML
@@ -115,6 +117,8 @@ public class Addusers implements Initializable {
     @FXML
     private TextField viewrepassText;
 
+    @FXML
+    private TextField rechercher;
 
     private final  Map<Label,String> validateMessage = new HashMap<>();
     private final List<String> listRoles = new ArrayList<>();
@@ -148,6 +152,16 @@ public class Addusers implements Initializable {
         emailCells.setCellValueFactory(new PropertyValueFactory<>("Email"));
         roleCell.setCellValueFactory(new PropertyValueFactory<>("Roles"));
         listUserTable.setItems(obsListUsers);
+
+
+        rechercher.textProperty().addListener(( observableValue,  odlValue, newValue)->{
+
+                if(newValue.isEmpty())
+                  return;
+
+            });
+
+
         FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), rootPane);
         fadeIn.setFromValue(0);
         fadeIn.setToValue(1);
@@ -267,6 +281,11 @@ public void reloadListUsers(){
     });
 }
 
+@FXML
+public void searchUser(ActionEvent event){
+
+}
+
 public void setValidationMessage(){
        if(pseudo.getText().isEmpty() || pseudo.getText().length() < 5)
             validateMessage.put(pseudoError,"Ce champ est obligatoire et doit contenir au minimum 5 caractères.");
@@ -340,6 +359,8 @@ public void setValidationMessage(){
     }
 
     public void clearControlle(){
+        if(user!=null)
+            user = null;
         pseudo.setText("");
         email.setText("");
         motdepasse.setText("");

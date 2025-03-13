@@ -172,9 +172,9 @@
                                         </Label>
                               <StackPane alignment="BASELINE_RIGHT">
                                  <children>
-                                    <TextField prefHeight="35.0" prefWidth="606.0" promptText=" Chercher  un Utilisateur">
+                                    <TextField fx:id="rechercher" prefHeight="35.0" prefWidth="606.0" promptText=" Chercher  un Utilisateur">
                                        <font>
-                                          <Font name="System Bold" size="18.0" />
+                                          <Font name="System Bold" size="15.0" />
                                        </font>
                                     </TextField>
                                     <FontAwesomeIconView fill="#6161dd" glyphName="SEARCH" size="22" tabSize="15">
