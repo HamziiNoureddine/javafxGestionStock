@@ -6,6 +6,7 @@ import com.hamzi.hnia.dz.Models.Users;
 import com.hamzi.hnia.dz.ModelsFX.UsersFX;
 import com.hamzi.hnia.dz.Services.rolesService;
 import com.hamzi.hnia.dz.Services.usersService;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
@@ -22,17 +23,24 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+
+import java.io.File;
 import java.net.URL;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Component
 public class Addusers implements Initializable {
@@ -95,7 +103,7 @@ public class Addusers implements Initializable {
     Map<Label,String> validationMessage =new HashMap<>();
 
     Integer selectedRows;
-
+    Integer filtredRows;
     @FXML
     private TableView<UsersFX> listUserTable;
 
@@ -110,7 +118,7 @@ public class Addusers implements Initializable {
     private TableColumn<UsersFX,String>  roleCell;
 
     @FXML
-    private TableColumn<Node, Button> optionCells;
+    private TableColumn<UsersFX, Void> optionCells;
     @FXML
     private TextField viewpassText;
 
@@ -130,6 +138,7 @@ public class Addusers implements Initializable {
     private final PasswordEncoder passwordEncoder;
     private final rolesService roleService;
     private  Users user;
+    private ObservableList<UsersFX> filteredUsers=FXCollections.observableArrayList();
 
     public Addusers(usersService userService, PasswordEncoder passwordEncoder, rolesService roleService) {
         this.userService = userService;
@@ -140,25 +149,69 @@ public class Addusers implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeViewpassText();
-        if(user != null)
+        if (user != null)
             user = null;
         listRoles.clear();
 
-         obsListUsers.clear();
+        obsListUsers.clear();
         listRoles.add("Utilisateur");
         reloadListUsers();
 
         pseudoCell.setCellValueFactory(new PropertyValueFactory<>("Username"));
         emailCells.setCellValueFactory(new PropertyValueFactory<>("Email"));
         roleCell.setCellValueFactory(new PropertyValueFactory<>("Roles"));
+
+        optionCells.setCellFactory(param -> new TableCell<UsersFX, Void>() {
+            private final Button deleteButton = new Button();
+
+            {
+                double imageSize = 40;
+                // Create FontAwesome delete icon
+                ImageView deleteIcon = new ImageView(new Image("classpath:Images/user_delete.png"));
+                deleteIcon.setFitHeight(imageSize);
+                deleteIcon.setFitWidth(imageSize);
+                Rectangle clip = new Rectangle(imageSize, imageSize);
+                clip.setArcWidth(5 * 2); // Apply horizontal corner radius
+                clip.setArcHeight(5 * 2); // Apply vertical corner radius
+                deleteIcon.setClip(clip); // Apply circular clip to image
+                deleteIcon.setStyle("-fx-fill: white; -fx-font-size: 16px;");
+                deleteButton.setGraphic(deleteIcon);
+                deleteButton.setStyle(
+                        "-fx-background-color: transparent; " +  // No background
+                                "-fx-border-color: transparent; " +      // No border
+                                "-fx-padding: 0; " +                     // Remove padding
+                                "-fx-cursor: hand;"                      // Set cursor to hand on hover
+                );
+
+                // Handle delete button click
+                deleteButton.setOnAction(event -> {
+                    UsersFX user = getTableView().getItems().get(getIndex());
+                    getTableView().getItems().remove(user);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);  // Hide button in empty rows
+                } else {
+                    setGraphic(deleteButton);
+                }
+            }
+
+        });
+
+
         listUserTable.setItems(obsListUsers);
 
 
         rechercher.textProperty().addListener(( observableValue,  odlValue, newValue)->{
 
-                if(newValue.isEmpty())
-                  return;
-
+                if(!newValue.isEmpty()) {
+                    searchUser();
+                }else  listUserTable.setItems(obsListUsers);
             });
 
 
@@ -177,11 +230,7 @@ public class Addusers implements Initializable {
                 return;
 
 
-        List<Roles> roleListe = new ArrayList<>();
-        listRoles.forEach(roles->{
-            Roles role = roleService.getRolesByDesignation(RolesType.valueOf(roles));
-            roleListe.add(role);
-        });
+        List<Roles> roleListe = extractSelectedRoles();
         Users user =new Users();
         user.setUsername(pseudo.getText());
         user.setPassword(passwordEncoder.encode(motdepasse.getText()));
@@ -207,7 +256,19 @@ public class Addusers implements Initializable {
       clearLabelMessage();
       selectedRows = listUserTable.getSelectionModel().getSelectedIndex();
 
-       user =  userService.getuserByUsername(pseudoCell.getCellData(selectedRows));
+        if (selectedRows < 0) return;
+        user =  userService.getuserByUsername(pseudoCell.getCellData(selectedRows));
+        System.out.println(filteredUsers.size() +" : "+ obsListUsers.size());
+        if(!filteredUsers.isEmpty()){
+            System.out.println("is inferieur");
+            filtredRows  = listUserTable.getSelectionModel().getSelectedIndex();
+            selectedRows = obsListUsers.indexOf(obsListUsers.stream()
+                    .filter(usersFX -> usersFX.getUsername().equals(user.getUsername()))
+                    .findFirst().orElse(null));
+
+            System.out.println(selectedRows + " : "+filtredRows);
+        }
+
        listRoles.clear();
        Utilisateur.setSelected(false);
        Admin.setSelected(false);
@@ -240,12 +301,14 @@ public class Addusers implements Initializable {
         pseudo.setText(user.getUsername());
         email.setText(user.getEmail()!=null?user.getEmail():"");
         Integer codeUser = user.getCodeUser();
-        listUserTable.setItems(obsListUsers);
+
+      //  listUserTable.setItems(obsListUsers);
 
     }
 
 @FXML
 private void modifUser(ActionEvent event ){
+    System.out.println(selectedRows);
        validateMessage.clear();
        clearLabelMessage();
        setValidationMessage();
@@ -253,20 +316,22 @@ private void modifUser(ActionEvent event ){
         return;
 
 
-    List<Roles> roleListe = new ArrayList<>();
-       listRoles.forEach(roles->{
-
-        Roles role = roleService.getRolesByDesignation(RolesType.valueOf(roles));
-        roleListe.add(role);
-    });
+    List<Roles> roleListe = extractSelectedRoles();
        user.setRoles(roleListe);
        user.setUsername(pseudo.getText());
        user.setEmail(email.getText());
        if(!motdepasse.getText().isEmpty())
            user.setPassword(passwordEncoder.encode((motdepasse.getText())));
       Users userModif =  userService.addUser(user);
-    System.out.println(userModif);
-         reloadListUsers();
+    if (selectedRows == null || selectedRows < 0) return;
+       obsListUsers.set(selectedRows,new UsersFX(userModif));
+       if(!filteredUsers.isEmpty()){
+           filteredUsers.set(filtredRows,new UsersFX(userModif));
+           rechercher.clear();
+           listUserTable.setItems(obsListUsers);
+           listUserTable.getSelectionModel().select(selectedRows);
+
+       }
 
      }
 public void reloadListUsers(){
@@ -281,11 +346,30 @@ public void reloadListUsers(){
     });
 }
 
-@FXML
-public void searchUser(ActionEvent event){
+
+public void searchUser() {
+    String searchValue = rechercher.getText().trim().toLowerCase();
+
+    if (searchValue.isEmpty()) {
+        System.out.println("searchValue is Empty");
+     // Restore full list if search is empty
+        return;
+    }
+
+// Filter the list and update TableView
+    filteredUsers = obsListUsers.stream()
+                .filter(user ->
+                        user.getUsername().toLowerCase().contains(searchValue) ||
+                                user.getEmail().toLowerCase().contains(searchValue) ||
+                                user.getRoles().toLowerCase().contains(searchValue)
+                )
+                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+
+
+        listUserTable.setItems(filteredUsers);
+
 
 }
-
 public void setValidationMessage(){
        if(pseudo.getText().isEmpty() || pseudo.getText().length() < 5)
             validateMessage.put(pseudoError,"Ce champ est obligatoire et doit contenir au minimum 5 caractères.");
@@ -342,7 +426,7 @@ public void setValidationMessage(){
 
 
     }
-        System.out.println("validation is executed.....................");
+
     }
 
     public void clearLabelMessage(){
@@ -407,7 +491,16 @@ public void setValidationMessage(){
        viewrepassText.textProperty().bindBidirectional(retaperpasse.textProperty());
        repassEYE.setVisible(false);
    }
+    private List<Roles> extractSelectedRoles() {
+        return listRoles.stream()
+                .map(role -> roleService.getRolesByDesignation(RolesType.valueOf(role)))
+                .collect(Collectors.toList());
     }
+
+
+    }
+
+
 
 
 

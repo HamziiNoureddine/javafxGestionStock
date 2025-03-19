@@ -74,7 +74,7 @@
                                                             </font>
                                                         </PasswordField>
                                           <FontAwesomeIconView fx:id="passEYES" fill="#682ed2" glyphName="EYE_SLASH" layoutX="362.0" layoutY="24.0" onMouseClicked="#viewPassword" size="14" translateX="-29.0" />
-                                          <TextField fx:id="viewpassText" alignment="CENTER" layoutY="-2.0" prefHeight="40.0" prefWidth="361.0" translateY="2.0">
+                                          <TextField fx:id="viewpassText" alignment="CENTER" layoutY="-2.0" prefHeight="40.0" prefWidth="361.0" promptText="Entrez votre Mot de Passe" translateY="2.0">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -95,7 +95,7 @@
                                                             </font>
                                                         </PasswordField>
                                           <FontAwesomeIconView fx:id="repassEYES" fill="#682ed2" glyphName="EYE_SLASH" layoutX="367.0" layoutY="24.0" onMouseClicked="#viewPassword" size="14" translateX="-32.0" translateY="2.0" />
-                                          <TextField fx:id="viewrepassText" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="361.0">
+                                          <TextField fx:id="viewrepassText" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="361.0" promptText="Retappez votre Mot de Passe">
                                              <font>
                                                 <Font size="18.0" />
                                              </font>
@@ -170,14 +170,14 @@
                                                 <Font name="System Bold" size="18.0" />
                                             </font>
                                         </Label>
-                              <StackPane alignment="BASELINE_RIGHT">
+                              <StackPane alignment="CENTER_RIGHT" style="-fx-background-color: red;">
                                  <children>
                                     <TextField fx:id="rechercher" prefHeight="35.0" prefWidth="606.0" promptText=" Chercher  un Utilisateur">
                                        <font>
                                           <Font name="System Bold" size="15.0" />
                                        </font>
                                     </TextField>
-                                    <FontAwesomeIconView fill="#6161dd" glyphName="SEARCH" size="22" tabSize="15">
+                                    <FontAwesomeIconView fill="#6161dd" glyphName="SEARCH" size="22" tabSize="20">
                                        <StackPane.margin>
                                           <Insets right="14.0" />
                                        </StackPane.margin>
