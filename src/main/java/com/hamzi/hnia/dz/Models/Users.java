@@ -16,7 +16,7 @@ public class Users {
     private String username;
     private String password;
     private String email;
-    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE, CascadeType.PERSIST} )
     private List<Roles> roles;
 
     public Users() {

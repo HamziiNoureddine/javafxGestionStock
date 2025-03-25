@@ -12,4 +12,5 @@ public interface usersService {
     public Users getuserByUsername(String username);
     public Users addUser(Users user);
     public List<Users> listUsers();
+    public void supprimeUtilisateur(Users user);
 }

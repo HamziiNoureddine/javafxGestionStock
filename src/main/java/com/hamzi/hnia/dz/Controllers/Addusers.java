@@ -28,8 +28,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Callback;
 import javafx.util.Duration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -41,6 +43,8 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import static javafx.application.Application.launch;
 
 @Component
 public class Addusers implements Initializable {
@@ -161,47 +165,9 @@ public class Addusers implements Initializable {
         emailCells.setCellValueFactory(new PropertyValueFactory<>("Email"));
         roleCell.setCellValueFactory(new PropertyValueFactory<>("Roles"));
 
-        optionCells.setCellFactory(param -> new TableCell<UsersFX, Void>() {
-            private final Button deleteButton = new Button();
+        optionCells.setCellFactory(createDeleteButtonCellFactory(listUserTable) );
 
-            {
-                double imageSize = 40;
-                // Create FontAwesome delete icon
-                ImageView deleteIcon = new ImageView(new Image("classpath:Images/user_delete.png"));
-                deleteIcon.setFitHeight(imageSize);
-                deleteIcon.setFitWidth(imageSize);
-                Rectangle clip = new Rectangle(imageSize, imageSize);
-                clip.setArcWidth(5 * 2); // Apply horizontal corner radius
-                clip.setArcHeight(5 * 2); // Apply vertical corner radius
-                deleteIcon.setClip(clip); // Apply circular clip to image
-                deleteIcon.setStyle("-fx-fill: white; -fx-font-size: 16px;");
-                deleteButton.setGraphic(deleteIcon);
-                deleteButton.setStyle(
-                        "-fx-background-color: transparent; " +  // No background
-                                "-fx-border-color: transparent; " +      // No border
-                                "-fx-padding: 0; " +                     // Remove padding
-                                "-fx-cursor: hand;"                      // Set cursor to hand on hover
-                );
 
-                // Handle delete button click
-                deleteButton.setOnAction(event -> {
-                    UsersFX user = getTableView().getItems().get(getIndex());
-                    getTableView().getItems().remove(user);
-                });
-            }
-
-            @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty) {
-                    setGraphic(null);  // Hide button in empty rows
-                } else {
-                    setGraphic(deleteButton);
-                }
-            }
-
-        });
 
 
         listUserTable.setItems(obsListUsers);
@@ -211,7 +177,10 @@ public class Addusers implements Initializable {
 
                 if(!newValue.isEmpty()) {
                     searchUser();
-                }else  listUserTable.setItems(obsListUsers);
+                }else {
+                    listUserTable.setItems(obsListUsers);
+                    listUserTable.refresh();
+                };
             });
 
 
@@ -326,7 +295,7 @@ private void modifUser(ActionEvent event ){
     if (selectedRows == null || selectedRows < 0) return;
        obsListUsers.set(selectedRows,new UsersFX(userModif));
        if(!filteredUsers.isEmpty()){
-           filteredUsers.set(filtredRows,new UsersFX(userModif));
+          // filteredUsers.set(filtredRows,new UsersFX(userModif));
            rechercher.clear();
            listUserTable.setItems(obsListUsers);
            listUserTable.getSelectionModel().select(selectedRows);
@@ -497,7 +466,74 @@ public void setValidationMessage(){
                 .collect(Collectors.toList());
     }
 
+    private Callback<TableColumn<UsersFX, Void>, TableCell<UsersFX, Void>> createDeleteButtonCellFactory(TableView<UsersFX> tableView) {
+        return param -> new TableCell<UsersFX, Void>() {
+            private final Button deleteButton = new Button();
 
+            {
+                double imageSize = 40;
+                // Create FontAwesome delete icon
+                 FontAwesomeIconView deleteIcon = new FontAwesomeIconView();
+                 deleteIcon.setGlyphName("TRASH");
+                 deleteIcon.setFill(Color.color(1,1,1));
+                 deleteIcon.setSize("25");
+             //   deleteIcon.setFitWidth(imageSize);
+//                Rectangle clip = new Rectangle(imageSize, imageSize);
+//                clip.setArcWidth(5 * 2); // Apply horizontal corner radius
+//                clip.setArcHeight(5 * 2); // Apply vertical corner radius
+//                deleteIcon.setClip(clip); // Apply circular clip to image
+              //  deleteIcon.setStyle("-fx-fill: white; -fx-font-size: 16px;");
+                deleteButton.setGraphic(deleteIcon);
+                deleteButton.setStyle(
+                        "-fx-background-color: transparent; " +  // No background
+                                "-fx-border-color: transparent; " +      // No border
+                                "-fx-padding: 0; " +                     // Remove padding
+                                "-fx-cursor: hand;"                      // Set cursor to hand on hover
+                );
+
+                // Handle delete button click
+                deleteButton.setOnAction(event -> {
+                    UsersFX userFx = getTableView().getItems().get(getIndex());
+                    Users userDel = userService.getuserByUsername(userFx.getUsername());
+                    userService.supprimeUtilisateur(userDel);
+                    getTableView().getItems().remove(userFx);
+                    if(!filteredUsers.isEmpty()){
+
+
+                        selectedRows = obsListUsers.indexOf(obsListUsers.stream()
+                                .filter(usersFX -> usersFX.getUsername().equals(userDel.getUsername()))
+                                .findFirst().orElse(null));
+
+                        System.out.println(selectedRows + " : "+filtredRows);
+
+                        // filteredUsers.set(filtredRows,new UsersFX(userModif));
+                        obsListUsers.remove((int)selectedRows);
+                        rechercher.clear();
+                        listUserTable.setItems(obsListUsers);
+                        listUserTable.refresh();
+
+                    }
+
+
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                if (empty) {
+                    setGraphic(null);  // Hide button in empty rows
+                } else {
+                    setGraphic(deleteButton);
+                }
+            }
+
+
+
+
+        };
+    }
     }
 
 

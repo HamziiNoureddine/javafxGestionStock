@@ -30,4 +30,9 @@ public class userServiceImp implements usersService{
     public List<Users> listUsers() {
         return usersRepositoryImp.findAll();
     }
+
+    @Override
+    public void supprimeUtilisateur(Users user) {
+        usersRepositoryImp.delete(user);
+    }
 }
