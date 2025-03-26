@@ -215,15 +215,21 @@
                         </HBox>
                   <HBox alignment="TOP_CENTER" spacing="30.0">
                      <children>
-                        <Button fx:id="modifButton" layoutX="386.0" layoutY="10.0" mnemonicParsing="false" onAction="#modifUser" prefHeight="54.0" prefWidth="357.0" style="-fx-background-color: #EFA367;" styleClass="rounded_button" stylesheets="@../styles.css" text="Modifier">
+                        <Button fx:id="modifButton" graphicTextGap="20.0" layoutX="386.0" layoutY="10.0" mnemonicParsing="false" onAction="#modifUser" prefHeight="54.0" prefWidth="357.0" style="-fx-background-color: #EFA367;" styleClass="rounded_button" stylesheets="@../styles.css" text="Modifier">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="System Bold" size="20.0" />
                            </font>
+                           <graphic>
+                              <FontAwesomeIconView fill="#a62929" glyphName="USER" size="30" />
+                           </graphic>
                         </Button>
-                              <Button fx:id="addButton" mnemonicParsing="false" onAction="#addUser" prefHeight="54.0" prefWidth="357.0" style="-fx-background-color: #EFA367;" styleClass="rounded_button" stylesheets="@../styles.css" text="Enregistrer">
+                              <Button fx:id="addButton" graphicTextGap="20.0" mnemonicParsing="false" onAction="#addUser" prefHeight="54.0" prefWidth="357.0" style="-fx-background-color: #EFA367;" styleClass="rounded_button" stylesheets="@../styles.css" text="Enregistrer">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="System Bold" size="20.0" />
                            </font>
+                           <graphic>
+                              <FontAwesomeIconView fill="#a62929" glyphName="PLUS" size="30" wrappingWidth="15.571428298950195" />
+                           </graphic>
                         </Button>
                      </children>
                   </HBox>

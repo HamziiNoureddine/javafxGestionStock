@@ -6,11 +6,13 @@ import com.hamzi.hnia.dz.Models.Users;
 import com.hamzi.hnia.dz.ModelsFX.UsersFX;
 import com.hamzi.hnia.dz.Services.rolesService;
 import com.hamzi.hnia.dz.Services.usersService;
+import com.hamzi.hnia.dz.Utils.DialogUtil;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -37,6 +39,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 
+import javax.swing.*;
 import java.io.File;
 import java.net.URL;
 import java.util.*;
@@ -170,18 +173,18 @@ public class Addusers implements Initializable {
 
 
 
-        listUserTable.setItems(obsListUsers);
+       // listUserTable.setItems(obsListUsers);
+        searchUser();
 
-
-        rechercher.textProperty().addListener(( observableValue,  odlValue, newValue)->{
-
-                if(!newValue.isEmpty()) {
-                    searchUser();
-                }else {
-                    listUserTable.setItems(obsListUsers);
-                    listUserTable.refresh();
-                };
-            });
+//        rechercher.textProperty().addListener(( observableValue,  odlValue, newValue)->{
+//
+//                if(!newValue.isEmpty()) {
+//                    searchUser();
+//                }else {
+//                    listUserTable.setItems(obsListUsers);
+//                    listUserTable.refresh();
+//                };
+//            });
 
 
         FadeTransition fadeIn = new FadeTransition(Duration.seconds(1), rootPane);
@@ -294,13 +297,13 @@ private void modifUser(ActionEvent event ){
       Users userModif =  userService.addUser(user);
     if (selectedRows == null || selectedRows < 0) return;
        obsListUsers.set(selectedRows,new UsersFX(userModif));
-       if(!filteredUsers.isEmpty()){
-          // filteredUsers.set(filtredRows,new UsersFX(userModif));
-           rechercher.clear();
-           listUserTable.setItems(obsListUsers);
-           listUserTable.getSelectionModel().select(selectedRows);
-
-       }
+//       if(!filteredUsers.isEmpty()){
+//          // filteredUsers.set(filtredRows,new UsersFX(userModif));
+//           rechercher.clear();
+//           listUserTable.setItems(obsListUsers);
+//           listUserTable.getSelectionModel().select(selectedRows);
+//
+//       }
 
      }
 public void reloadListUsers(){
@@ -317,25 +320,45 @@ public void reloadListUsers(){
 
 
 public void searchUser() {
-    String searchValue = rechercher.getText().trim().toLowerCase();
+//    String searchValue = rechercher.getText().trim().toLowerCase();
+//
+//    if (searchValue.isEmpty()) {
+//        System.out.println("searchValue is Empty");
+//     // Restore full list if search is empty
+//        return;
+//    }
+//
+//// Filter the list and update TableView
+//    filteredUsers = obsListUsers.stream()
+//                .filter(user ->
+//                        user.getUsername().toLowerCase().contains(searchValue) ||
+//                                user.getEmail().toLowerCase().contains(searchValue) ||
+//                                user.getRoles().toLowerCase().contains(searchValue)
+//                )
+//                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+//
+//
+//        listUserTable.setItems(filteredUsers);
+    FilteredList<UsersFX> filteredList = new FilteredList<>(obsListUsers, p -> true);
+    filteredUsers = filteredList;
 
-    if (searchValue.isEmpty()) {
-        System.out.println("searchValue is Empty");
-     // Restore full list if search is empty
-        return;
-    }
-
-// Filter the list and update TableView
-    filteredUsers = obsListUsers.stream()
-                .filter(user ->
-                        user.getUsername().toLowerCase().contains(searchValue) ||
-                                user.getEmail().toLowerCase().contains(searchValue) ||
-                                user.getRoles().toLowerCase().contains(searchValue)
-                )
-                .collect(Collectors.toCollection(FXCollections::observableArrayList));
+    // Search Field
 
 
-        listUserTable.setItems(filteredUsers);
+    // Bind filtering logic to searchField text
+    filteredList.predicateProperty().bind(Bindings.createObjectBinding(() ->
+                    user ->  {
+                        String filter = rechercher.getText().toLowerCase();
+                        if (filter.isEmpty()) return true; // Show all if empty
+
+                        return user.getUsername().toLowerCase().contains(filter) ||
+                                user.getEmail().toLowerCase().contains(filter) ||
+                                user.getRoles().toLowerCase().contains(filter);
+                    },
+            rechercher.textProperty()
+    ));
+
+    listUserTable.setItems(filteredList);
 
 
 }
@@ -493,27 +516,32 @@ public void setValidationMessage(){
 
                 // Handle delete button click
                 deleteButton.setOnAction(event -> {
-                    UsersFX userFx = getTableView().getItems().get(getIndex());
-                    Users userDel = userService.getuserByUsername(userFx.getUsername());
-                    userService.supprimeUtilisateur(userDel);
-                    getTableView().getItems().remove(userFx);
-                    if(!filteredUsers.isEmpty()){
+                   boolean yes = DialogUtil.showConfirmationDialog(Alert.AlertType.CONFIRMATION,"Confirmer","Estvous sur de vouloir supprimer");
+                   if(yes) {
+                       UsersFX userFx = getTableView().getItems().get(getIndex());
+                       Users userDel = userService.getuserByUsername(userFx.getUsername());
+                       userService.supprimeUtilisateur(userDel);
+                       DialogUtil.showConfirmationDialog(Alert.AlertType.INFORMATION,"Information","Suppression Efectué avec succès");
+                       getTableView().getItems().remove(userFx);
+                       if (!filteredUsers.isEmpty()) {
 
 
-                        selectedRows = obsListUsers.indexOf(obsListUsers.stream()
-                                .filter(usersFX -> usersFX.getUsername().equals(userDel.getUsername()))
-                                .findFirst().orElse(null));
+                           selectedRows = obsListUsers.indexOf(obsListUsers.stream()
+                                   .filter(usersFX -> usersFX.getUsername().equals(userDel.getUsername()))
+                                   .findFirst().orElse(null));
 
-                        System.out.println(selectedRows + " : "+filtredRows);
+                           System.out.println(selectedRows + " : " + filtredRows);
 
-                        // filteredUsers.set(filtredRows,new UsersFX(userModif));
-                        obsListUsers.remove((int)selectedRows);
-                        rechercher.clear();
-                        listUserTable.setItems(obsListUsers);
-                        listUserTable.refresh();
+                           // filteredUsers.set(filtredRows,new UsersFX(userModif));
+                           obsListUsers.remove((int) selectedRows);
+                           rechercher.clear();
+                           listUserTable.setItems(obsListUsers);
+                           listUserTable.refresh();
 
-                    }
-
+                       }
+                   }else{
+                       DialogUtil.showConfirmationDialog(Alert.AlertType.INFORMATION,"Information","Vous avez Annuler la supprission de cet Utilisateur");
+                   }
 
                 });
             }
