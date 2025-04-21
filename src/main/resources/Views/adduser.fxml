@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="516.0" prefWidth="1108.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hamzi.hnia.dz.Controllers.Addusers">
+<AnchorPane fx:id="rootPane" minHeight="-Infinity" prefHeight="400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hamzi.hnia.dz.Controllers.Addusers">
     <children>
         <HBox alignment="CENTER" prefHeight="516.0" prefWidth="1108.0" style="-fx-background-radius: 20; -fx-background-color: #162C51;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -215,21 +215,20 @@
                         </HBox>
                   <HBox alignment="TOP_CENTER" spacing="30.0">
                      <children>
-                        <Button fx:id="modifButton" graphicTextGap="20.0" layoutX="386.0" layoutY="10.0" mnemonicParsing="false" onAction="#modifUser" prefHeight="54.0" prefWidth="357.0" style="-fx-background-color: #EFA367;" styleClass="rounded_button" stylesheets="@../styles.css" text="Modifier">
+                        <Button fx:id="modifButton" graphicTextGap="20.0" layoutX="386.0" layoutY="10.0" mnemonicParsing="false" onAction="#modifUser" prefHeight="46.0" prefWidth="250.0" style="-fx-background-color: #EFA367; -fx-cursor: hand;" styleClass="rounded_button" stylesheets="@../styles.css" text="Modifier">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
-                           <graphic>
-                              <FontAwesomeIconView fill="#a62929" glyphName="USER" size="30" />
-                           </graphic>
                         </Button>
-                              <Button fx:id="addButton" graphicTextGap="20.0" mnemonicParsing="false" onAction="#addUser" prefHeight="54.0" prefWidth="357.0" style="-fx-background-color: #EFA367;" styleClass="rounded_button" stylesheets="@../styles.css" text="Enregistrer">
+                              <Button fx:id="addButton" graphicTextGap="20.0" mnemonicParsing="false" onAction="#addUser" prefHeight="46.0" prefWidth="250.0" style="-fx-background-color: #EFA367; -fx-cursor: hand;" styleClass="rounded_button" stylesheets="@../styles.css" text="Enregistrer">
                            <font>
                               <Font name="System Bold" size="20.0" />
                            </font>
-                           <graphic>
-                              <FontAwesomeIconView fill="#a62929" glyphName="PLUS" size="30" wrappingWidth="15.571428298950195" />
-                           </graphic>
+                        </Button>
+                        <Button fx:id="InitialiseButton" graphicTextGap="20.0" layoutX="594.0" layoutY="10.0" mnemonicParsing="false" onAction="#clearControlle" prefHeight="46.0" prefWidth="250.0" style="-fx-background-color: #EFA367; -fx-cursor: hand;" styleClass="rounded_button" stylesheets="@../styles.css" text="Initialiser">
+                           <font>
+                              <Font name="System Bold" size="20.0" />
+                           </font>
                         </Button>
                      </children>
                   </HBox>

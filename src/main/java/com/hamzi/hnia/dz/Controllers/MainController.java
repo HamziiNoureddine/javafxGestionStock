@@ -53,8 +53,10 @@ public class MainController implements Initializable {
 
             TranslateTransition slide = new TranslateTransition();
             slide.setDuration(Duration.seconds(0.7));
+
             TranslateTransition Childslide = new TranslateTransition();
             Childslide.setDuration(Duration.seconds(0.7));
+
             slide.setNode(slider);
             Childslide.setNode(child);
             if (isMenu){

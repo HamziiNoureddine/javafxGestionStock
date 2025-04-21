@@ -13,6 +13,7 @@ import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -107,10 +108,8 @@ public class Addusers implements Initializable {
     @FXML
     private Label roleError;
 
-    Map<Label,String> validationMessage =new HashMap<>();
-
     Integer selectedRows;
-    Integer filtredRows;
+
     @FXML
     private TableView<UsersFX> listUserTable;
 
@@ -126,6 +125,7 @@ public class Addusers implements Initializable {
 
     @FXML
     private TableColumn<UsersFX, Void> optionCells;
+
     @FXML
     private TextField viewpassText;
 
@@ -134,6 +134,11 @@ public class Addusers implements Initializable {
 
     @FXML
     private TextField rechercher;
+
+    @FXML
+    private Button InitialiseButton;
+    @FXML
+    private Button modifButton;
 
     private final  Map<Label,String> validateMessage = new HashMap<>();
     private final List<String> listRoles = new ArrayList<>();
@@ -155,6 +160,9 @@ public class Addusers implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        disableButtonifNotSelected(modifButton);
+        disableButtonifSelected(addButton);
         initializeViewpassText();
         if (user != null)
             user = null;
@@ -163,7 +171,6 @@ public class Addusers implements Initializable {
         obsListUsers.clear();
         listRoles.add("Utilisateur");
         reloadListUsers();
-
         pseudoCell.setCellValueFactory(new PropertyValueFactory<>("Username"));
         emailCells.setCellValueFactory(new PropertyValueFactory<>("Email"));
         roleCell.setCellValueFactory(new PropertyValueFactory<>("Roles"));
@@ -207,10 +214,11 @@ public class Addusers implements Initializable {
         user.setUsername(pseudo.getText());
         user.setPassword(passwordEncoder.encode(motdepasse.getText()));
         user.setEmail(email.getText());
-        user.setRoles(roleListe);
+        user.setRoles(roleListe);//dans la table user la collection role doit avoir anootation ManytoMany(fetch=FetchType.Eager)
         Users users = userService.addUser(user);
         UsersFX usersFX = new UsersFX(users);
         obsListUsers.add(usersFX);
+        clearControlle();
 
     }
     @FXML
@@ -224,21 +232,20 @@ public class Addusers implements Initializable {
        }
     }
     public void getSelected(){
-      clearControlle();
+      //clearControlle();
       clearLabelMessage();
       selectedRows = listUserTable.getSelectionModel().getSelectedIndex();
 
         if (selectedRows < 0) return;
         user =  userService.getuserByUsername(pseudoCell.getCellData(selectedRows));
-        System.out.println(filteredUsers.size() +" : "+ obsListUsers.size());
+
         if(!filteredUsers.isEmpty()){
-            System.out.println("is inferieur");
-            filtredRows  = listUserTable.getSelectionModel().getSelectedIndex();
+
             selectedRows = obsListUsers.indexOf(obsListUsers.stream()
                     .filter(usersFX -> usersFX.getUsername().equals(user.getUsername()))
                     .findFirst().orElse(null));
 
-            System.out.println(selectedRows + " : "+filtredRows);
+
         }
 
        listRoles.clear();
@@ -297,13 +304,7 @@ private void modifUser(ActionEvent event ){
       Users userModif =  userService.addUser(user);
     if (selectedRows == null || selectedRows < 0) return;
        obsListUsers.set(selectedRows,new UsersFX(userModif));
-//       if(!filteredUsers.isEmpty()){
-//          // filteredUsers.set(filtredRows,new UsersFX(userModif));
-//           rechercher.clear();
-//           listUserTable.setItems(obsListUsers);
-//           listUserTable.getSelectionModel().select(selectedRows);
-//
-//       }
+    clearControlle();
 
      }
 public void reloadListUsers(){
@@ -400,7 +401,7 @@ public void setValidationMessage(){
     if (listRoles.isEmpty() )
         validateMessage.put(roleError,"Ce champ est obligatoire vous devez selectionner au minimum 1 Role.");
     else{ roleError.setVisible(false);}
-      //  addButton.setDisable(!validateMessage.isEmpty());
+
 
     if(!validateMessage.isEmpty()){
         validateMessage.forEach((key,value)->{
@@ -433,7 +434,7 @@ public void setValidationMessage(){
         roleError.setText("");
         roleError.setVisible(false);
     }
-
+    @FXML
     public void clearControlle(){
         if(user!=null)
             user = null;
@@ -441,6 +442,18 @@ public void setValidationMessage(){
         email.setText("");
         motdepasse.setText("");
         retaperpasse.setText("");
+        listRoles.clear();
+        Utilisateur.setSelected(true);
+        listRoles.add(Utilisateur.getText());
+        Admin.setSelected(false);
+        Ajout.setSelected(false);
+        Modifier.setSelected(false);
+        Supprimer.setSelected(false);
+        selectedRows=-1;
+
+        listUserTable.getSelectionModel().clearSelection();
+
+       // rechercher.clear();
     }
    @FXML
     public void viewPassword(MouseEvent event){
@@ -500,12 +513,7 @@ public void setValidationMessage(){
                  deleteIcon.setGlyphName("TRASH");
                  deleteIcon.setFill(Color.color(1,1,1));
                  deleteIcon.setSize("25");
-             //   deleteIcon.setFitWidth(imageSize);
-//                Rectangle clip = new Rectangle(imageSize, imageSize);
-//                clip.setArcWidth(5 * 2); // Apply horizontal corner radius
-//                clip.setArcHeight(5 * 2); // Apply vertical corner radius
-//                deleteIcon.setClip(clip); // Apply circular clip to image
-              //  deleteIcon.setStyle("-fx-fill: white; -fx-font-size: 16px;");
+
                 deleteButton.setGraphic(deleteIcon);
                 deleteButton.setStyle(
                         "-fx-background-color: transparent; " +  // No background
@@ -517,30 +525,18 @@ public void setValidationMessage(){
                 // Handle delete button click
                 deleteButton.setOnAction(event -> {
                    boolean yes = DialogUtil.showConfirmationDialog(Alert.AlertType.CONFIRMATION,"Confirmer","Estvous sur de vouloir supprimer");
+
                    if(yes) {
                        UsersFX userFx = getTableView().getItems().get(getIndex());
                        Users userDel = userService.getuserByUsername(userFx.getUsername());
                        userService.supprimeUtilisateur(userDel);
                        DialogUtil.showConfirmationDialog(Alert.AlertType.INFORMATION,"Information","Suppression Efectué avec succès");
-                       getTableView().getItems().remove(userFx);
-                       if (!filteredUsers.isEmpty()) {
+                       obsListUsers.remove(userFx);
+                       rechercher.clear();
 
 
-                           selectedRows = obsListUsers.indexOf(obsListUsers.stream()
-                                   .filter(usersFX -> usersFX.getUsername().equals(userDel.getUsername()))
-                                   .findFirst().orElse(null));
-
-                           System.out.println(selectedRows + " : " + filtredRows);
-
-                           // filteredUsers.set(filtredRows,new UsersFX(userModif));
-                           obsListUsers.remove((int) selectedRows);
-                           rechercher.clear();
-                           listUserTable.setItems(obsListUsers);
-                           listUserTable.refresh();
-
-                       }
                    }else{
-                       DialogUtil.showConfirmationDialog(Alert.AlertType.INFORMATION,"Information","Vous avez Annuler la supprission de cet Utilisateur");
+                       DialogUtil.showConfirmationDialog(Alert.AlertType.INFORMATION,"Information","Vous avez Annuler la suppréssion de cet Utilisateur");
                    }
 
                 });
@@ -561,6 +557,12 @@ public void setValidationMessage(){
 
 
         };
+    }
+    public void disableButtonifNotSelected(Button button){
+        button.disableProperty().bind(listUserTable.getSelectionModel().selectedItemProperty().isNull());
+    }
+    public void disableButtonifSelected(Button button){
+        button.disableProperty().bind(listUserTable.getSelectionModel().selectedItemProperty().isNotNull());
     }
     }
 

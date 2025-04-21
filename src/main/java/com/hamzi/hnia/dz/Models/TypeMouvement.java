@@ -1,0 +1,6 @@
+package com.hamzi.hnia.dz.Models;
+
+public enum TypeMouvement {
+    ENTREE, // Achat, retour client...
+    SORTIE  // Vente, perte...
+}
