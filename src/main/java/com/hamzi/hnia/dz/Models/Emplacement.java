@@ -1,21 +1,12 @@
 package com.hamzi.hnia.dz.Models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.*;
 
 import java.util.List;
 
 @Entity
 @Table(name = "emplacements")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class Emplacement {
     @Id
     @GeneratedValue
@@ -23,9 +14,56 @@ public class Emplacement {
 
     private String nom; // Ex: "Entrepôt A", "Rayon B2"
     private String adresse;
+    private String rayonnage;
+    private String etagere ;
+     public Emplacement() {
+    }
 
-    @OneToMany(mappedBy = "emplacement")
-    private List<Stock> stocks; // Relation avec Stock
+    public Emplacement(Long id, String nom, String adresse) {
+        this.id = id;
+        this.nom = nom;
+        this.adresse = adresse;
+    }
 
-    // ...
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getAdresse() {
+        return adresse;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public String getRayonnage() {
+        return rayonnage;
+    }
+
+    public void setRayonnage(String rayonnage) {
+        this.rayonnage = rayonnage;
+    }
+
+    public String getEtagere() {
+        return etagere;
+    }
+
+    public void setEtagere(String etagere) {
+        this.etagere = etagere;
+    }
+
+// ...
 }

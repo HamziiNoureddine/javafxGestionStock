@@ -88,7 +88,7 @@
                <children>
                   <VBox layoutX="29.0" layoutY="31.0" prefHeight="479.0" prefWidth="210.0" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="53.0">
                      <children>
-                        <JFXButton fx:id="dashbord" alignment="BASELINE_LEFT" onAction="#loadParent" prefHeight="49.0" prefWidth="210.0" styleClass="sidebarItem" stylesheets="@../styles.css" text="Dashbord" textFill="WHITE">
+                        <JFXButton fx:id="dashbord" alignment="BASELINE_LEFT" prefHeight="49.0" prefWidth="210.0" styleClass="sidebarItem" stylesheets="@../styles.css" text="Dashbord" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
@@ -99,7 +99,7 @@
                                  </image></ImageView>
                            </graphic>
                         </JFXButton>
-                        <JFXButton alignment="BASELINE_LEFT" prefHeight="46.0" prefWidth="210.0" styleClass="sidebarItem" stylesheets="@../styles.css" text="Add" textFill="WHITE">
+                        <JFXButton alignment="BASELINE_LEFT" onAction="#loadParent" prefHeight="46.0" prefWidth="210.0" styleClass="sidebarItem" stylesheets="@../styles.css" text=" Utilisateurs" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="15.0" />
                            </font>
