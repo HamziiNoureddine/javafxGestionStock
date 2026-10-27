@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class Stock {
     @EmbeddedId
     private StockProduitId id;
-    private int quantite;
+    private Integer quantite;
     @MapsId("produitId")
     @ManyToOne
     @JoinColumn(name = "produit_id")

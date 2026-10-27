@@ -3,6 +3,7 @@ package com.hamzi.hnia.dz.Models;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -14,7 +15,8 @@ public class CommandeFournisseur {
     private Long id;
 
     private String numeroCommande; // Ex: "CMD-2023-001"
-    private LocalDate date;
+    private LocalDateTime date;
+    private double total;
 
     @ManyToOne
     @JoinColumn(name = "fournisseur_id")
@@ -26,12 +28,13 @@ public class CommandeFournisseur {
     public CommandeFournisseur() {
     }
 
-    public CommandeFournisseur(Long id, String numeroCommande, LocalDate date, Fournisseur fournisseur) {
+    public CommandeFournisseur(Long id, String numeroCommande, LocalDateTime date, Fournisseur fournisseur) {
         this.id = id;
         this.numeroCommande = numeroCommande;
-        this.date = date;
+        this.date = LocalDateTime.now();
         this.fournisseur = fournisseur;
     }
+
 
     public Long getId() {
         return id;
@@ -49,11 +52,11 @@ public class CommandeFournisseur {
         this.numeroCommande = numeroCommande;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
@@ -71,6 +74,14 @@ public class CommandeFournisseur {
 
     public void setLignes(List<LigneCommandeFournisseur> lignes) {
         this.lignes = lignes;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 
     // ...

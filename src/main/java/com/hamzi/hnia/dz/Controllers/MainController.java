@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -37,7 +38,7 @@ public class MainController implements Initializable {
     private double childPosition;
     @FXML
     private VBox centerContainer;
-    private AnchorPane child;
+    private ScrollPane child;
     @Autowired
     private SwitchScenne switchScenne;
     boolean isMenu = true;
@@ -80,8 +81,9 @@ public class MainController implements Initializable {
 
     }
     @FXML
-    public void loadParent(ActionEvent e) throws IOException {centerContainer.getChildren().clear();
-    child = (AnchorPane) switchScenne.getNodeFxml("adduser.fxml");
+    public void loadParent(ActionEvent e) throws IOException {
+    centerContainer.getChildren().clear();
+    child = (ScrollPane) switchScenne.getNodeFxml("addusertableview.fxml");
     childPosition = child.getLayoutX();
     child.prefWidthProperty().bind(centerContainer.widthProperty());
     child.prefHeightProperty().bind(centerContainer.heightProperty());

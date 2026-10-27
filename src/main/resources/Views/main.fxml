@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hamzi.hnia.dz.Controllers.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.hamzi.hnia.dz.Controllers.MainController">
    <children>
       <BorderPane fx:id="borderpane" layoutX="207.0" layoutY="58.0" prefHeight="400.0" prefWidth="629.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -108,6 +108,30 @@
                                  <image>
                                     <Image url="@../Images/add.png" />
                                  </image></ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton alignment="BASELINE_LEFT" layoutX="10.0" layoutY="59.0" onAction="#loadParent" prefHeight="46.0" prefWidth="210.0" styleClass="sidebarItem" stylesheets="@../styles.css" text="Categorie" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="28.0" fitWidth="25.0" pickOnBounds="true">
+                                 <image>
+                                    <Image url="@../Images/add.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton alignment="BASELINE_LEFT" layoutX="10.0" layoutY="105.0" onAction="#loadParent" prefHeight="46.0" prefWidth="210.0" styleClass="sidebarItem" stylesheets="@../styles.css" text="Produits" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="28.0" fitWidth="25.0" pickOnBounds="true">
+                                 <image>
+                                    <Image url="@../Images/add.png" />
+                                 </image>
+                              </ImageView>
                            </graphic>
                         </JFXButton>
                         <JFXButton alignment="BASELINE_LEFT" prefHeight="47.0" prefWidth="210.0" styleClass="sidebarItem" stylesheets="@../styles.css" text="Report" textFill="WHITE">

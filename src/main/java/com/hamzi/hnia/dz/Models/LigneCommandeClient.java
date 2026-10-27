@@ -2,6 +2,8 @@ package com.hamzi.hnia.dz.Models;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 
 @Entity
 @Table(name = "lignes_commande_client")
@@ -12,7 +14,7 @@ public class LigneCommandeClient {
     private Long id;
 
     private int quantite;
-    private double prixUnitaire; // Prix au moment de la vente
+    private BigDecimal prixUnitaire; // Prix au moment de la vente
 
     @ManyToOne
     @JoinColumn(name = "produit_id", nullable = false)
@@ -25,7 +27,7 @@ public class LigneCommandeClient {
     public LigneCommandeClient() {
     }
 
-    public LigneCommandeClient(Long id, int quantite, double prixUnitaire, Produit produit, CommandeClient commande) {
+    public LigneCommandeClient(Long id, int quantite, BigDecimal prixUnitaire, Produit produit, CommandeClient commande) {
         this.id = id;
         this.quantite = quantite;
         this.prixUnitaire = prixUnitaire;
@@ -49,11 +51,11 @@ public class LigneCommandeClient {
         this.quantite = quantite;
     }
 
-    public double getPrixUnitaire() {
+    public BigDecimal getPrixUnitaire() {
         return prixUnitaire;
     }
 
-    public void setPrixUnitaire(double prixUnitaire) {
+    public void setPrixUnitaire(BigDecimal prixUnitaire) {
         this.prixUnitaire = prixUnitaire;
     }
 
@@ -73,8 +75,8 @@ public class LigneCommandeClient {
         this.commande = commande;
     }
 
-    public double getTotal() {
-        return quantite * prixUnitaire; // ✅ Dynamique
+    public BigDecimal getTotal() {
+        return prixUnitaire.multiply(BigDecimal.valueOf(getQuantite())); // ✅ Dynamique
     }
 
     // ...

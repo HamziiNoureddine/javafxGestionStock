@@ -7,6 +7,7 @@ import com.hamzi.hnia.dz.ModelsFX.UsersFX;
 import com.hamzi.hnia.dz.Services.rolesService;
 import com.hamzi.hnia.dz.Services.usersService;
 import com.hamzi.hnia.dz.Utils.DialogUtil;
+import com.hamzi.hnia.dz.Utils.TableBuilder;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.animation.FadeTransition;
@@ -31,6 +32,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -111,7 +113,8 @@ public class Addusers implements Initializable {
     Integer selectedRows;
 
     @FXML
-    private TableView<UsersFX> listUserTable;
+    private  TableView<UsersFX> listUserTable;
+
 
 
     @FXML
@@ -166,13 +169,33 @@ public class Addusers implements Initializable {
         initializeViewpassText();
         if (user != null)
             user = null;
+
         listRoles.clear();
 
         obsListUsers.clear();
         listRoles.add("Utilisateur");
         reloadListUsers();
-        pseudoCell.setCellValueFactory(new PropertyValueFactory<>("Username"));
-        emailCells.setCellValueFactory(new PropertyValueFactory<>("Email"));
+//        TableBuilder.build(listUserTable,UsersFX.class);
+//
+//
+//
+//       listUserTable.setRowFactory(tv -> {
+//                   TableRow<UsersFX> row = new TableRow<>();
+//
+//                   row.setOnMouseClicked(event -> {
+//                       if (!row.isEmpty()) {
+//
+//                          getSelected();
+//
+//
+//                       }
+//                   });
+//           return row;
+//       });
+//
+//        tableContainer.getChildren().add(listUserTable);
+        pseudoCell.setCellValueFactory(data -> data.getValue().usernameProperty());
+        emailCells.setCellValueFactory(data -> data.getValue().emailProperty());
         roleCell.setCellValueFactory(new PropertyValueFactory<>("Roles"));
 
         optionCells.setCellFactory(createDeleteButtonCellFactory(listUserTable) );
@@ -180,7 +203,7 @@ public class Addusers implements Initializable {
 
 
 
-       // listUserTable.setItems(obsListUsers);
+        listUserTable.setItems(obsListUsers);
         searchUser();
 
 //        rechercher.textProperty().addListener(( observableValue,  odlValue, newValue)->{
@@ -210,10 +233,12 @@ public class Addusers implements Initializable {
 
 
         List<Roles> roleListe = extractSelectedRoles();
+
         Users user =new Users();
         user.setUsername(pseudo.getText());
         user.setPassword(passwordEncoder.encode(motdepasse.getText()));
         user.setEmail(email.getText());
+
         user.setRoles(roleListe);//dans la table user la collection role doit avoir anootation ManytoMany(fetch=FetchType.Eager)
         Users users = userService.addUser(user);
         UsersFX usersFX = new UsersFX(users);
@@ -225,19 +250,19 @@ public class Addusers implements Initializable {
     public void addRoles(ActionEvent event){
        if ( ((CheckBox)event.getSource()).isSelected()){
           listRoles.add(((CheckBox) event.getSource()).getText());
-           System.out.println(listRoles);
+
        }else{
            listRoles.remove(((CheckBox) event.getSource()).getText());
-           System.out.println(listRoles);
+
        }
     }
     public void getSelected(){
       //clearControlle();
       clearLabelMessage();
-      selectedRows = listUserTable.getSelectionModel().getSelectedIndex();
+       UsersFX selectedUser = listUserTable.getSelectionModel().getSelectedItem();
+       selectedRows = listUserTable.getSelectionModel().getSelectedIndex();
 
-        if (selectedRows < 0) return;
-        user =  userService.getuserByUsername(pseudoCell.getCellData(selectedRows));
+        user =  userService.getuserByUsername(selectedUser.getUsername());
 
         if(!filteredUsers.isEmpty()){
 
@@ -287,7 +312,7 @@ public class Addusers implements Initializable {
 
 @FXML
 private void modifUser(ActionEvent event ){
-    System.out.println(selectedRows);
+
        validateMessage.clear();
        clearLabelMessage();
        setValidationMessage();
@@ -457,7 +482,7 @@ public void setValidationMessage(){
     }
    @FXML
     public void viewPassword(MouseEvent event){
-       System.out.println("Clicked fontawesomeiconview");
+
 
 
        if( event.getSource() == passEYES ) {
@@ -491,6 +516,7 @@ public void setValidationMessage(){
        viewpassText.setVisible(false);
        viewpassText.textProperty().bindBidirectional(motdepasse.textProperty());
        passEYE.setVisible(false);
+
        viewrepassText.setManaged(false);
        viewrepassText.setVisible(false);
        viewrepassText.textProperty().bindBidirectional(retaperpasse.textProperty());

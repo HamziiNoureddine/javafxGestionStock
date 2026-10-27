@@ -1,19 +1,24 @@
 package com.hamzi.hnia.dz.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hamzi.hnia.dz.Utils.FXModel;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 
 @Entity
-public class Users {
+@ToString
+public class Users extends FXModel<Users> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Integer codeUser;
     private String username;
+    @JsonIgnore
     private String password;
     private String email;
     @ManyToMany(fetch = FetchType.EAGER )
@@ -69,5 +74,22 @@ public class Users {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public Users toEntity() {
+        Users user = new Users();
+        user.setCodeUser(getCodeUser());
+        user.setUsername(getUsername());
+        user.setPassword(getPassword());
+        user.setEmail(getEmail());
+        user.setRoles(getRoles());
+
+        return user;
+    }
+
+    @Override
+    public void fromEntity(Users Entity) {
+
     }
 }

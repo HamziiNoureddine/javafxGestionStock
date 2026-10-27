@@ -4,6 +4,7 @@ import javafx.animation.TranslateTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -58,7 +59,7 @@ public class SwitchScenne {
         primaryStage.show();
     }
 
-    public void slideTransitioinChild(AnchorPane child, TranslateTransition slide,double slider,double childPosition, boolean slidTo){
+    public void slideTransitioinChild(ScrollPane child, TranslateTransition slide, double slider, double childPosition, boolean slidTo){
         if(slidTo & child != null){
             double screen = Screen.getPrimary().getVisualBounds().getWidth();
 

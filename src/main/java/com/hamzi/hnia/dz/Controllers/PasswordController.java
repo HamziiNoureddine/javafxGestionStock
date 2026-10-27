@@ -56,8 +56,7 @@ public class PasswordController {
 
         try {
             Authentication  authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username.getText(),password.getText()));
-            System.out.println("Authetication avec succees :"+authentication.getAuthorities());
-            System.out.println(screenWidth+" : "+screenHeight);
+
             switchScenne.switchScenneFxml("main.fxml",screenWidth,screenHeight);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

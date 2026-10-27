@@ -6,6 +6,8 @@ import com.hamzi.hnia.dz.Repositorys.rolesRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 @Transactional
 public class rolesServiceImpl implements rolesService{
@@ -19,5 +21,10 @@ public class rolesServiceImpl implements rolesService{
     @Override
     public Roles getRolesByDesignation(RolesType rolesType) {
         return repositoryroles.findByDesignationRole(rolesType);
+    }
+
+    @Override
+    public List<Roles> listRoles() {
+        return repositoryroles.findAll();
     }
 }

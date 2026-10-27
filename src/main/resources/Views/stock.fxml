@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.hamzi.hnia.dz.Controllers.StockController">
+    <top>
+        <HBox >
+            <Label text="Produit ID:"/>
+            <TextField fx:id="txtProduitId"/>
+            <Label text="Quantité:"/>
+            <TextField fx:id="txtQuantite"/>
+            <Label text="Type:"/>
+            <ComboBox fx:id="cbTypeMouvement"/>
+            <Button text="Ajouter" onAction="#ajouterMouvement"/>
+        </HBox>
+    </top>
+    <center>
+        <TableView fx:id="tableProduits">
+            <columns>
+                <TableColumn fx:id="colNom" text="Nom"/>
+                <TableColumn fx:id="colQuantite" text="Quantité"/>
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>

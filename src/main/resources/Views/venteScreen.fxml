@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane>
+
+    <top>
+        <HBox spacing="10">
+            <TextField fx:id="searchField" promptText="Search product"/>
+            <TextField fx:id="barcodeField" promptText="Scan barcode"/>
+        </HBox>
+    </top>
+
+    <center>
+        <SplitPane>
+
+            <!-- Products -->
+            <VBox fx:id="productContainer"/>
+
+            <!-- Cart -->
+            <VBox spacing="10">
+
+                <TableView fx:id="cartTable">
+
+                    <columns>
+
+                        <TableColumn text="Product"/>
+                        <TableColumn text="Qty"/>
+                        <TableColumn text="Price"/>
+                        <TableColumn text="Total"/>
+
+                    </columns>
+
+                </TableView>
+
+                <Label fx:id="totalLabel" text="TOTAL : 0"/>
+
+            </VBox>
+
+        </SplitPane>
+
+    </center>
+
+    <bottom>
+        <HBox spacing="10">
+            <Button text="Remove"/>
+            <Button text="Clear"/>
+            <Button text="Pay"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

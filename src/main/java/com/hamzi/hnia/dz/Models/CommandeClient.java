@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -16,9 +17,10 @@ public class CommandeClient {
     private Long id;
 
     private String numeroCommande; // Ex: "VENTE-2023-001"
-    private LocalDate date;
+    private LocalDateTime date ;
     @Enumerated(EnumType.STRING)
     private StatutCommande statut; // Enum: EN_ATTENTE, LIVREE, ANNULEE
+    private double total;
 
     @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
@@ -30,10 +32,10 @@ public class CommandeClient {
     public CommandeClient() {
     }
 
-    public CommandeClient(Long id, String numeroCommande, LocalDate date, StatutCommande statut, Client client) {
+    public CommandeClient(Long id, String numeroCommande, LocalDateTime date, StatutCommande statut, Client client) {
         this.id = id;
         this.numeroCommande = numeroCommande;
-        this.date = date;
+        this.date = LocalDateTime.now();
         this.statut = statut;
         this.client = client;
     }
@@ -54,12 +56,20 @@ public class CommandeClient {
         this.numeroCommande = numeroCommande;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 
     public StatutCommande getStatut() {

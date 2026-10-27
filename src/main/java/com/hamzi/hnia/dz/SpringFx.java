@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationContextInitializer;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.GenericApplicationContext;
-import org.springframework.stereotype.Component;
+
 
 
 public class SpringFx extends Application {
@@ -48,8 +48,10 @@ public class SpringFx extends Application {
 class ReadyStage extends ApplicationEvent{
 
    public Stage getStage(){
+
        return (Stage) getSource();
    }
+   
     public ReadyStage(Stage source) {
         super(source);
 

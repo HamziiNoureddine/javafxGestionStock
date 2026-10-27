@@ -3,8 +3,7 @@ package com.hamzi.hnia.dz.Models;
 import jakarta.persistence.*;
 
 
-
-
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -21,12 +20,29 @@ public class Produit {
 
     private String nom;
     private String description;
-    private double prixUnitaire;
 
-    private double prixAchatMoyen; // Mise à jour automatique
-    private double margePourcentage; // Ex: 30.0 pour 30%
+    private int quantiteStock;
+    private BigDecimal prixAchatMoyen; // Mise à jour automatique
+    private BigDecimal margePourcentage; // Ex: 30.0 pour 30%
+    private BigDecimal prixVente;
+    private boolean autoriserStockNegatif;
 
-    // Champ calculé (non persisté)
+    public BigDecimal getPrixAchatMoyen() {
+        return prixAchatMoyen;
+    }
+
+    public void setPrixAchatMoyen(BigDecimal prixAchatMoyen) {
+        this.prixAchatMoyen = prixAchatMoyen;
+    }
+
+    public BigDecimal getMargePourcentage() {
+        return margePourcentage;
+    }
+
+    public void setMargePourcentage(BigDecimal margePourcentage) {
+        this.margePourcentage = margePourcentage;
+    }
+// Champ calculé (non persisté)
 
     private int seuilAlerte; // Stock minimum avant alerte
 
@@ -34,21 +50,23 @@ public class Produit {
     @JoinColumn(name = "categorie_id")
     private Categorie categorie;
 
-    @OneToMany(mappedBy = "produit", cascade = CascadeType.ALL)
-    private List<Stock> stocks; // Relation avec Stock
+//    @OneToMany(mappedBy = "produit", cascade = CascadeType.ALL)
+//    private List<Stock> stocks; // Relation avec Stock
 
     public Produit() {
     }
 
-    public Produit(Long id, String reference, String nom, String description, double prixUnitaire, int seuilAlerte, Categorie categorie) {
+    public Produit(Long id, String reference, String nom, String description, int seuilAlerte, Categorie categorie) {
         this.id = id;
         this.reference = reference;
         this.nom = nom;
         this.description = description;
-        this.prixUnitaire = prixUnitaire;
+
         this.seuilAlerte = seuilAlerte;
         this.categorie = categorie;
     }
+
+
 
     public Long getId() {
         return id;
@@ -81,15 +99,6 @@ public class Produit {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public double getPrixUnitaire() {
-        return prixUnitaire;
-    }
-
-    public void setPrixUnitaire(double prixUnitaire) {
-        this.prixUnitaire = prixUnitaire;
-    }
-
     public int getSeuilAlerte() {
         return seuilAlerte;
     }
@@ -105,19 +114,31 @@ public class Produit {
     public void setCategorie(Categorie categorie) {
         this.categorie = categorie;
     }
-
-    public List<Stock> getStocks() {
-        return stocks;
+    public int getQuantiteStock() {
+        return quantiteStock;
     }
 
-    public void setStocks(List<Stock> stocks) {
-        this.stocks = stocks;
+    public BigDecimal getPrixVente() {
+        return prixVente;
     }
 
-    @Transient
-    public double getPrixVente() {
-        return prixAchatMoyen * (1 + margePourcentage / 100);
+    public void setPrixVente(BigDecimal prixVente) {
+        this.prixVente = prixVente;
+    }
+
+    public void setQuantiteStock(int quantiteStock) {
+        this.quantiteStock = quantiteStock;
+    }
+
+    public boolean isAutoriserStockNegatif() {
+        return autoriserStockNegatif;
+    }
+    public boolean isStockAlert(){
+        return quantiteStock <= seuilAlerte;
     }
 
 
+    public void setAutoriserStockNegatif(boolean autoriserStockNegatif) {
+        this.autoriserStockNegatif = autoriserStockNegatif;
+    }
 }
